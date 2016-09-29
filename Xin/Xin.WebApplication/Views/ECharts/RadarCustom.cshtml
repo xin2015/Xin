@@ -1,0 +1,129 @@
+﻿
+@{
+    ViewBag.Title = "RadarCustom";
+}
+
+<div id="chart" style="height:800px;"></div>
+
+@section scripts{
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+        // 指定图表的配置项和数据
+
+        function randomData() {
+            return Math.round(Math.random() * 50 + 50);
+        }
+
+        var option = {
+            title: {
+                text: '自定义雷达图'
+            },
+            tooltip: {},
+            legend: {
+                data: ['2014有效率', '2015有效率', '2014达标率', '2015达标率']
+            },
+            radar: [
+                {
+                    indicator: [
+                        { name: 'SO2', max: 100 },
+                        { name: 'NO2', max: 100 },
+                        { name: 'PM10', max: 100 },
+                        { name: 'CO', max: 100 },
+                        { name: 'O3', max: 100 },
+                        { name: 'PM2.5', max: 100 }
+                    ],
+                    center: ['25%', '50%'],
+                    radius: 120,
+                    startAngle: 90,
+                    splitNumber: 4,
+                    shape: 'circle',
+                },
+                {
+                    indicator: [
+                        { name: 'SO2', max: 100 },
+                        { name: 'NO2', max: 100 },
+                        { name: 'PM10', max: 100 },
+                        { name: 'CO', max: 100 },
+                        { name: 'O3', max: 100 },
+                        { name: 'PM2.5', max: 100 }
+                    ],
+                    center: ['75%', '50%'],
+                    radius: 120
+                }
+            ],
+            series: [
+                {
+                    name: '有效率',
+                    type: 'radar',
+                    itemStyle: {
+                        emphasis: {
+                            // color: 各异,
+                            lineStyle: {
+                                width: 4
+                            }
+                        }
+                    },
+                    data: [
+                        {
+                            value: [randomData(), randomData(), randomData(), randomData(), randomData(), randomData()],
+                            name: '2014有效率',
+                            symbol: 'rect',
+                            symbolSize: 5,
+                            lineStyle: {
+                                normal: {
+                                    type: 'dashed'
+                                }
+                            }
+                        },
+                        {
+                            value: [randomData(), randomData(), randomData(), randomData(), randomData(), randomData()],
+                            name: '2015有效率',
+                            areaStyle: {
+                                normal: {
+                                    color: 'rgba(255, 255, 255, 0.5)'
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    name: '达标率',
+                    type: 'radar',
+                    radarIndex: 1,
+                    data: [
+                        {
+                            value: [randomData(), randomData(), randomData(), randomData(), randomData(), randomData()],
+                            name: '2014达标率',
+                            label: {
+                                normal: {
+                                    show: true,
+                                    type: 'dashed',
+                                    formatter: function (params) {
+                                        return params.value;
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            value: [randomData(), randomData(), randomData(), randomData(), randomData(), randomData()],
+                            name: '2015达标率',
+                            areaStyle: {
+                                normal: {
+                                    show: true,
+                                    formatter: function (params) {
+                                        return params.value;
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+}

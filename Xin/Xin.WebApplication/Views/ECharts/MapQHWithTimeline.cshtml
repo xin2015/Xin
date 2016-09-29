@@ -1,0 +1,816 @@
+﻿@{
+    ViewBag.Title = "MapQHWithTimeline";
+}
+
+<div id="chart" style="height:800px;"></div>
+<ul id="playList" class="list-group" style="margin:auto;width:640px;">
+    @for (int i = 2002; i < 2012; i++)
+    {
+        <li id="@(i-2002)" class="list-group-item" style="float:left">@i</li>
+    }
+</ul>
+<div class="clearfix"></div>
+@section scripts{
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script src="~/Scripts/echarts/map/js/province/qinghai.js"></script>
+    <script src="~/Scripts/PollutantConst.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+
+        // 指定图表的配置项和数据
+        var geoCoordMap = {
+            "市环境监测站": [101.748, 36.6428],
+            "省医药仓库": [101.749, 36.6922],
+            "四陆医院": [101.834, 36.5819],
+            "第五水厂": [101.524, 36.6867],
+            "海晏县西海镇": [100.9048, 36.9639],
+            "同仁县隆务镇": [102.0199, 35.5102],
+            "共和县恰卜恰镇": [100.6188, 36.2866],
+            "玛沁县大武镇": [100.2561, 34.4714],
+            "玉树县结古镇": [97, 33.0014],
+            "德令哈市": [97.3731, 37.3753],
+            "治多县": [95.61572, 33.84527],
+            "尖扎县": [101.708, 36.09],
+            "达日县": [99.6468888, 33.758277],
+            "循化县": [102.492133, 35.854934],
+            "民和县": [102.837253, 36.326524],
+            "乐都子站": [102.419377, 36.467499],
+            "格尔木经济开发区子站": [94.957222, 36.39174],
+            "祁连": [100.2525, 38.174444],
+            "河南县": [101.6272, 34.7333],
+            "互助北山": [102.4821, 36.9527],
+            "玛多县": [98.2104, 34.9179],
+            "互助县": [101.9522, 36.8194],
+            "久治县": [101.4809, 33.43086],
+            "贵德县": [101.43, 36.04997],
+            "化隆县": [102.2628, 36.09575],
+            "循化孟达天池": [102.6908, 35.8177],
+            "坎布拉": [101.708, 36.09575]
+        };
+
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name];
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value)
+                    });
+                }
+            }
+            return res;
+        };
+
+        function randomData() {
+            return Math.round(Math.random() * 150 - 10);
+        }
+
+        var option = {
+            baseOption: {
+                timeline: {
+                    // y: 0,
+                    axisType: 'category',
+                    // realtime: false,
+                    // loop: false,
+                    autoPlay: false,
+                    // currentIndex: 2,
+                    playInterval: 3000,
+                    // controlStyle: {
+                    //     position: 'left'
+                    // },
+                    show: false,
+                    data: ['2002-01-01', '2003-01-01', '2004-01-01', '2005-01-01', '2006-01-01', '2007-01-01', '2008-01-01', '2009-01-01', '2010-01-01', '2011-01-01'],
+                    label: {
+                        formatter: function (s) {
+                            return (new Date(s)).getFullYear();
+                        }
+                    }
+                },
+                backgroundColor: '#404A59',// 404A59,D1D1D1,A6C2DE
+                tooltip: {
+                    trigger: 'item',
+                    formatter: function (params) {
+                        if (params.seriesName == 'station') {
+                            return params.name + '：' + (params.value[2] < 0 ? '—' : params.value[2]);
+                        } else {
+                            return params.name + '：' + (params.value < 0 ? '—' : params.value);
+                        }
+                    }
+                },
+                geo: {
+                    map: '青海'
+                },
+                visualMap: {
+                    type: 'piecewise',
+                    pieces: [
+                            { min: 301, label: '严重污染' },
+                            { min: 201, max: 300, label: '重度污染' },
+                            { min: 151, max: 200, label: '中度污染' },
+                            { min: 101, max: 150, label: '轻度污染' },
+                            { min: 51, max: 100, label: '良' },
+                            { min: 0, max: 50, label: '优' },
+                            { max: -1, label: '无数据' }
+                    ],
+                    color: ['#7e0023', '#99004c', '#ff0000', '#ff7e00', '#ffff00', '#00e400', '#EEEEEE'],
+                    textStyle: {
+                        color: '#fff'
+                    },
+                    show: true,
+                    hoverLink: false
+                },
+                series: [
+                    {
+                        name: 'city',
+                        type: 'map',
+                        mapType: '青海',
+                        label: {
+                            normal: {
+                                show: true
+                            },
+                            emphasis: {
+                                show: true
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#fff',
+                                borderWidth: 3
+                            }
+                        }
+                    },
+                    {
+                        name: 'station',
+                        type: 'scatter',
+                        coordinateSystem: 'geo',
+                        symbolSize: 18,
+                        symbol: 'pin',
+                        itemStyle: {
+                            normal: {
+                                borderColor: '#333',
+                                borderWidth: 2
+                            }
+                        }
+                    }
+                ]
+            },
+            options: [
+                {
+                    title: { text: '2002青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2003青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2004青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2005青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2006青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2007青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2008青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2009青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2010青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    title: { text: '2011青海省空气质量' },
+                    series: [
+                        {
+                            name: 'city',
+                            type: 'map',
+                            mapType: '青海',
+                            label: {
+                                normal: {
+                                    show: true
+                                },
+                                emphasis: {
+                                    show: true
+                                }
+                            },
+                            data: [
+                                { name: '西宁市', value: randomData() },
+                                { name: '海东市', value: randomData() },
+                                { name: '海北藏族自治州', value: randomData() },
+                                { name: '海南藏族自治州', value: randomData() },
+                                { name: '果洛藏族自治州', value: randomData() },
+                                { name: '玉树藏族自治州', value: randomData() },
+                                { name: '海西蒙古族藏族自治州', value: randomData() },
+                                { name: '黄南藏族自治州', value: randomData() }
+                            ],
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#fff',
+                                    borderWidth: 3
+                                }
+                            }
+                        },
+                        {
+                            name: 'station',
+                            type: 'scatter',
+                            coordinateSystem: 'geo',
+                            data: convertData([
+                                { name: '市环境监测站', value: randomData() },
+                                { name: '四陆医院', value: randomData() },
+                                { name: '海晏县西海镇', value: randomData() },
+                                { name: '玉树县结古镇', value: randomData() },
+                                { name: '治多县', value: randomData() },
+                                { name: '达日县', value: randomData() },
+                                { name: '民和县', value: randomData() },
+                                { name: '格尔木经济开发区子站', value: randomData() },
+                                { name: '河南县', value: randomData() },
+                                { name: '玛多县', value: randomData() },
+                                { name: '久治县', value: randomData() },
+                                { name: '化隆县', value: randomData() },
+                                { name: '坎布拉', value: randomData() },
+                                { name: '共和县恰卜恰镇', value: randomData() }
+                            ]),
+                            symbolSize: 18,
+                            symbol: 'pin',
+                            itemStyle: {
+                                normal: {
+                                    borderColor: '#333',
+                                    borderWidth: 2
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        myChart.on('mouseover', function (params) {
+            myChart.dispatchAction({
+                type: 'downplay', name: params.name
+            });
+        });
+
+        $(document).ready(function () {
+            var ul = $("#playList");
+            ul.find("li").click(function () {
+                ul.find("li.active").removeClass("active");
+                $(this).addClass("active");
+                var num = this.id;
+                myChart.dispatchAction({
+                    type: 'timelineChange',
+                    // 时间点的 index
+                    currentIndex: num
+                });
+            });
+            ul.find("li").first().addClass("active");
+        });
+    </script>
+}

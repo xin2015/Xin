@@ -1,0 +1,250 @@
+﻿@{
+    ViewBag.Title = "MapQH";
+}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*<a class="navbar-brand" href="#">Brand</a>*@
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul id="pollutantNav" class="nav navbar-nav">
+                <li role="presentation" class="active" name="AQI"><a href="#">AQI</a></li>
+                <li role="presentation" name="SO2"><a href="#">SO<sub>2</sub></a></li>
+                <li role="presentation" name="NO2"><a href="#">NO<sub>2</sub></a></li>
+                <li role="presentation" name="PM10"><a href="#">PM<sub>10</sub></a></li>
+                <li role="presentation" name="CO"><a href="#">CO</a></li>
+                <li role="presentation" name="O3"><a href="#">O<sub>3</sub></a></li>
+                <li role="presentation" name="PM25"><a href="#">PM<sub>2.5</sub></a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div id="chart" style="height:600px;"></div>
+<table id="pollutant" class="table table-bordered table-striped">
+    <caption>全市站点情况</caption>
+    <thead>
+        <tr>
+            <th>站点名称</th>
+            <th>AQI</th>
+            <th>首要污染物</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div class="clearfix"></div>
+@section scripts{
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script src="~/Scripts/echarts/map/js/province/qinghai.js"></script>
+    <script src="~/Scripts/PollutantConst.js"></script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+        // 指定图表的配置项和数据
+        var geoCoordMap = {
+            "市环境监测站": [101.748, 36.6428],
+            "省医药仓库": [101.749, 36.6922],
+            "四陆医院": [101.834, 36.5819],
+            "第五水厂": [101.524, 36.6867],
+            "海晏县西海镇": [100.9048, 36.9639],
+            "同仁县隆务镇": [102.0199, 35.5102],
+            "共和县恰卜恰镇": [100.6188, 36.2866],
+            "玛沁县大武镇": [100.2561, 34.4714],
+            "玉树县结古镇": [97, 33.0014],
+            "德令哈市": [97.3731, 37.3753],
+            "治多县": [95.61572, 33.84527],
+            "尖扎县": [101.708, 36.09],
+            "达日县": [99.6468888, 33.758277],
+            "循化县": [102.492133, 35.854934],
+            "民和县": [102.837253, 36.326524],
+            "乐都子站": [102.419377, 36.467499],
+            "格尔木经济开发区子站": [94.957222, 36.39174],
+            "祁连": [100.2525, 38.174444],
+            "河南县": [101.6272, 34.7333],
+            "互助北山": [102.4821, 36.9527],
+            "玛多县": [98.2104, 34.9179],
+            "互助县": [101.9522, 36.8194],
+            "久治县": [101.4809, 33.43086],
+            "贵德县": [101.43, 36.04997],
+            "化隆县": [102.2628, 36.09575],
+            "循化孟达天池": [102.6908, 35.8177],
+            "坎布拉": [101.708, 36.09575]
+        };
+
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name];
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value)
+                    });
+                }
+            }
+            return res;
+        };
+
+        function randomData() {
+            return Math.round(Math.random() * 150 - 10);
+        }
+
+        var option = {
+            backgroundColor: '#404A59',// 404A59,D1D1D1,A6C2DE
+            tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                    if (params.seriesName == 'station') {
+                        return params.name + '：' + (params.value[2] < 0 ? '—' : params.value[2]);
+                    } else {
+                        return params.name + '：' + (params.value < 0 ? '—' : params.value);
+                    }
+                }
+            },
+            geo: {
+                map: '青海'
+            },
+            visualMap: {
+                type: 'piecewise',
+                pieces: [
+                        { min: 301, label: '严重污染' },
+                        { min: 201, max: 300, label: '重度污染' },
+                        { min: 151, max: 200, label: '中度污染' },
+                        { min: 101, max: 150, label: '轻度污染' },
+                        { min: 51, max: 100, label: '良' },
+                        { min: 0, max: 50, label: '优' },
+                        { max: -1, label: '无数据' }
+                ],
+                color: ['#7e0023', '#99004c', '#ff0000', '#ff7e00', '#ffff00', '#00e400', '#EEEEEE'],
+                textStyle: {
+                    color: '#fff'
+                },
+                show: true,
+                hoverLink: false
+            },
+            series: [
+                {
+                    name: 'city',
+                    type: 'map',
+                    mapType: '青海',
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    data: [
+                        { name: '西宁市', value: randomData() },
+                        { name: '海东市', value: randomData() },
+                        { name: '海北藏族自治州', value: randomData() },
+                        { name: '海南藏族自治州', value: randomData() },
+                        { name: '果洛藏族自治州', value: randomData() },
+                        { name: '玉树藏族自治州', value: randomData() },
+                        { name: '海西蒙古族藏族自治州', value: randomData() },
+                        { name: '黄南藏族自治州', value: randomData() }
+                    ],
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 3
+                        }
+                    }
+                },
+                {
+                    name: 'station',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: convertData([
+                        { name: '市环境监测站', value: randomData() },
+                        { name: '四陆医院', value: randomData() },
+                        { name: '海晏县西海镇', value: randomData() },
+                        { name: '玉树县结古镇', value: randomData() },
+                        { name: '治多县', value: randomData() },
+                        { name: '达日县', value: randomData() },
+                        { name: '民和县', value: randomData() },
+                        { name: '格尔木经济开发区子站', value: randomData() },
+                        { name: '河南县', value: randomData() },
+                        { name: '玛多县', value: randomData() },
+                        { name: '久治县', value: randomData() },
+                        { name: '化隆县', value: randomData() },
+                        { name: '坎布拉', value: randomData() },
+                        { name: '共和县恰卜恰镇', value: randomData() }
+                    ]),
+                    symbolSize: 18,
+                    symbol: 'pin',
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#333',
+                            borderWidth: 2
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // 处理点击事件
+        myChart.on('mouseover', function (params) {
+            myChart.dispatchAction({
+                type: 'downplay', name: params.name
+            });
+        });
+        myChart.on('click', function (params) {
+            if (params.seriesName == 'station') {
+                $("#pollutant > tbody").append("<tr><td>" + params.name + "</td><td>" + params.value[2] + "</td><td></td></tr>");
+            }
+        });
+
+        $(document).ready(function () {
+            var mapData = [], scatterData = [];
+            var pollutantConst = new PollutantConst();
+            $("#pollutantNav > li").click(function () {
+                $("#pollutantNav > li.active").removeClass("active");
+                $(this).addClass("active");
+                mapData = [
+                        { name: '西宁市', value: randomData() },
+                        { name: '海东市', value: randomData() },
+                        { name: '海北藏族自治州', value: randomData() },
+                        { name: '海南藏族自治州', value: randomData() },
+                        { name: '果洛藏族自治州', value: randomData() },
+                        { name: '玉树藏族自治州', value: randomData() },
+                        { name: '海西蒙古族藏族自治州', value: randomData() },
+                        { name: '黄南藏族自治州', value: randomData() }
+                ];
+                scatterData = convertData([
+                        { name: '市环境监测站', value: randomData() },
+                        { name: '四陆医院', value: randomData() },
+                        { name: '海晏县西海镇', value: randomData() },
+                        { name: '玉树县结古镇', value: randomData() },
+                        { name: '治多县', value: randomData() },
+                        { name: '达日县', value: randomData() },
+                        { name: '民和县', value: randomData() },
+                        { name: '格尔木经济开发区子站', value: randomData() },
+                        { name: '河南县', value: randomData() },
+                        { name: '玛多县', value: randomData() },
+                        { name: '久治县', value: randomData() },
+                        { name: '化隆县', value: randomData() },
+                        { name: '坎布拉', value: randomData() },
+                        { name: '共和县恰卜恰镇', value: randomData() }
+                ]);
+                option.series[0].data = mapData;
+                option.series[1].data = scatterData;
+                option.visualMap.pieces = pollutantConst.GetPieces('hour', $(this).attr("name"), true);
+                myChart.setOption(option);
+            });
+            myChart.setOption(option);
+        });
+    </script>
+}

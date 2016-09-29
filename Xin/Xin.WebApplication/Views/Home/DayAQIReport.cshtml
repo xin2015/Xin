@@ -1,0 +1,72 @@
+﻿@model Xin.Tabulation.Table
+@{
+    ViewBag.Title = "空气质量指数日报";
+}
+<link href="~/Scripts/DataTables/css/jquery.dataTables.min.css" rel="stylesheet" />
+<button id="export">Export Excel</button>
+<table class="table table-bordered table-striped" id="table">
+    <caption>空气质量指数日报</caption>
+    <thead>
+        @foreach (var tr in Model.Thead)
+        {
+            <tr>
+                @foreach (var cell in tr)
+                {
+                    if (cell is Xin.Tabulation.Th)
+                    {
+                        <th @(cell.Class == null ? string.Empty : string.Format("class={0}", cell.Class)) @(cell.Rowspan > 1 ? string.Format("rowspan={0}", cell.Rowspan) : string.Empty) @(cell.Colspan > 1 ? string.Format("colspan={0}", cell.Colspan) : string.Empty)>@cell.Value</th>
+                    }
+                    else
+                    {
+                        <td @(cell.Class == null ? string.Empty : string.Format("class={0}", cell.Class)) @(cell.Rowspan > 1 ? string.Format("rowspan={0}", cell.Rowspan) : string.Empty) @(cell.Colspan > 1 ? string.Format("colspan={0}", cell.Colspan) : string.Empty)>@cell.Value</td>
+                    }
+                }
+            </tr>
+        }
+    </thead>
+    <tfoot>
+        @foreach (var tr in Model.Tfoot)
+        {
+            <tr>
+                @foreach (var cell in tr)
+                {
+                    if (cell is Xin.Tabulation.Th)
+                    {
+                        <th @(cell.Class == null ? string.Empty : string.Format("class={0}", cell.Class)) @(cell.Rowspan > 1 ? string.Format("rowspan={0}", cell.Rowspan) : string.Empty) @(cell.Colspan > 1 ? string.Format("colspan={0}", cell.Colspan) : string.Empty)>@cell.Value</th>
+                    }
+                    else
+                    {
+                        <td @(cell.Class == null ? string.Empty : string.Format("class={0}", cell.Class)) @(cell.Rowspan > 1 ? string.Format("rowspan={0}", cell.Rowspan) : string.Empty) @(cell.Colspan > 1 ? string.Format("colspan={0}", cell.Colspan) : string.Empty)>@cell.Value</td>
+                    }
+                }
+            </tr>
+        }
+    </tfoot>
+    <tbody>
+        @foreach (var tr in Model.Tbody)
+        {
+            <tr>
+                @foreach (var cell in tr)
+                {
+                    if (cell is Xin.Tabulation.Th)
+                    {
+                        <th @(cell.Class == null ? string.Empty : string.Format("class={0}", cell.Class)) @(cell.Rowspan > 1 ? string.Format("rowspan={0}", cell.Rowspan) : string.Empty) @(cell.Colspan > 1 ? string.Format("colspan={0}", cell.Colspan) : string.Empty)>@cell.Value</th>
+                    }
+                    else
+                    {
+                        <td @(cell.Class == null ? string.Empty : string.Format("class={0}", cell.Class)) @(cell.Rowspan > 1 ? string.Format("rowspan={0}", cell.Rowspan) : string.Empty) @(cell.Colspan > 1 ? string.Format("colspan={0}", cell.Colspan) : string.Empty)>@cell.Value</td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#export").click(function () {
+                location.href = "/Home/ExportDayAQIReport?count=5000";
+            });
+        });
+    </script>
+}

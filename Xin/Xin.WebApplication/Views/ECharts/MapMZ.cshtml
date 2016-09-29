@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "MapMZ";
+}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @*<a class="navbar-brand" href="#">Brand</a>*@
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul id="pollutantNav" class="nav navbar-nav">
+                <li role="presentation" class="active" name="AQI"><a href="#">AQI</a></li>
+                <li role="presentation" name="SO2"><a href="#">SO<sub>2</sub></a></li>
+                <li role="presentation" name="NO2"><a href="#">NO<sub>2</sub></a></li>
+                <li role="presentation" name="PM10"><a href="#">PM<sub>10</sub></a></li>
+                <li role="presentation" name="CO"><a href="#">CO</a></li>
+                <li role="presentation" name="O3"><a href="#">O<sub>3</sub></a></li>
+                <li role="presentation" name="PM25"><a href="#">PM<sub>2.5</sub></a></li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+<div id="chart" style="height:600px;"></div>
+<table id="pollutant" class="table table-bordered table-striped">
+    <caption>全市站点情况</caption>
+    <thead>
+        <tr>
+            <th>站点名称</th>
+            <th>AQI</th>
+            <th>首要污染物</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+<div class="clearfix"></div>
+@section scripts{
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script src="~/Scripts/echarts/map/js/city/meizhou.js"></script>
+    <script src="~/Scripts/PollutantConst.js"></script>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+        // 指定图表的配置项和数据
+        var geoCoordMap = {
+            "梅江区站点": [116.123234, 24.315801],
+            "梅县区站点": [116.087873, 24.272228],
+            "大埔县站点": [116.701768, 24.353578],
+            "丰顺县站点": [116.188718, 23.745592],
+            "五华县站点": [115.782597, 23.9386],
+            "平远县站点": [115.897623, 24.572309],
+            "兴宁市站点": [115.737761, 24.1422],
+            "蕉岭县站点": [116.177666, 24.6649]
+        };
+
+        var convertData = function (data) {
+            var res = [];
+            for (var i = 0; i < data.length; i++) {
+                var geoCoord = geoCoordMap[data[i].name];
+                if (geoCoord) {
+                    res.push({
+                        name: data[i].name,
+                        value: geoCoord.concat(data[i].value)
+                    });
+                }
+            }
+            return res;
+        };
+
+        function randomData() {
+            return Math.round(Math.random() * 150);
+        }
+
+        var option = {
+            backgroundColor: '#404a59',
+            tooltip: {
+                trigger: 'item',
+                formatter: function (params) {
+                    if (params.seriesName == 'station') {
+                        return params.name + ' ' + params.value[2];
+                    } else {
+                        return params.name + ' ' + params.value;
+                    }
+                }
+            },
+            geo: {
+                map: 'meizhou'
+            },
+            visualMap: {
+                type: 'piecewise',
+                pieces: [
+                        { min: 301, max: 1000, label: '严重污染' },
+                        { min: 201, max: 300, label: '重度污染' },
+                        { min: 151, max: 200, label: '中度污染' },
+                        { min: 101, max: 150, label: '轻度污染' },
+                        { min: 51, max: 100, label: '良' },
+                        { min: 0, max: 50, label: '优' }
+                ],
+                color: ['#7e0023', '#99004c', '#ff0000', '#ff7e00', '#ffff00', '#00e400'],
+                textStyle: {
+                    color: '#fff'
+                },
+                show: true
+            },
+            series: [
+                {
+                    name: 'district',
+                    type: 'map',
+                    mapType: 'meizhou',
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                    data: [
+                        { name: '梅江区', value: randomData() },
+                        { name: '梅县区', value: randomData() },
+                        { name: '大埔县', value: randomData() },
+                        { name: '丰顺县', value: randomData() },
+                        { name: '五华县', value: randomData() },
+                        { name: '平远县', value: randomData() },
+                        { name: '兴宁市', value: randomData() },
+                        { name: '蕉岭县', value: randomData() }
+                    ],
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#fff',
+                            borderWidth: 3
+                        }
+                    }
+                },
+                {
+                    name: 'station',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: convertData([
+                        { name: '梅江区站点', value: randomData() },
+                        { name: '梅县区站点', value: randomData() },
+                        { name: '大埔县站点', value: randomData() },
+                        { name: '丰顺县站点', value: randomData() },
+                        { name: '五华县站点', value: randomData() },
+                        { name: '平远县站点', value: randomData() },
+                        { name: '兴宁市站点', value: randomData() },
+                        { name: '蕉岭县站点', value: randomData() }
+                    ]),
+                    symbolSize: 18,
+                    symbol: 'pin',
+                    itemStyle: {
+                        normal: {
+                            borderColor: '#333',
+                            borderWidth: 2
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // 处理点击事件
+        myChart.on('mouseover', function (params) {
+            myChart.dispatchAction({
+                type: 'downplay', name: params.name
+            });
+        });
+        myChart.on('click', function (params) {
+            if (params.seriesName == 'station') {
+                $("#pollutant > tbody").append("<tr><td>" + params.name + "</td><td>" + params.value[2] + "</td><td></td></tr>");
+            }
+        });
+
+        $(document).ready(function () {
+            var mapData = [], scatterData = [];
+            var pollutantConst = new PollutantConst();
+            $("#pollutantNav > li").click(function () {
+                $("#pollutantNav > li.active").removeClass("active");
+                $(this).addClass("active");
+                mapData = [
+                        { name: '梅江区', value: randomData() },
+                        { name: '梅县区', value: randomData() },
+                        { name: '大埔县', value: randomData() },
+                        { name: '丰顺县', value: randomData() },
+                        { name: '五华县', value: randomData() },
+                        { name: '平远县', value: randomData() },
+                        { name: '兴宁市', value: randomData() },
+                        { name: '蕉岭县', value: randomData() }
+                ];
+                scatterData = convertData([
+                        { name: '梅江区站点', value: randomData() },
+                        { name: '梅县区站点', value: randomData() },
+                        { name: '大埔县站点', value: randomData() },
+                        { name: '丰顺县站点', value: randomData() },
+                        { name: '五华县站点', value: randomData() },
+                        { name: '平远县站点', value: randomData() },
+                        { name: '兴宁市站点', value: randomData() },
+                        { name: '蕉岭县站点', value: randomData() }
+                ]);
+                option.series[0].data = mapData;
+                option.series[1].data = scatterData;
+                option.visualMap.pieces = pollutantConst.GetPieces('hour', $(this).attr("name"));
+                myChart.setOption(option);
+            });
+            myChart.setOption(option);
+        });
+    </script>
+}

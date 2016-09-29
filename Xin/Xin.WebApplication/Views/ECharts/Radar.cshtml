@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewBag.Title = "Radar";
+}
+
+<div id="chart" style="height:800px;"></div>
+
+@section scripts{
+    <script src="~/Scripts/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('chart'));
+        // 指定图表的配置项和数据
+
+        function randomData() {
+            return Math.round(Math.random() * 100);
+        }
+
+        var option = {
+            title: {
+                text: '环境空气质量基本监测项达标率'
+            },
+            tooltip: {},
+            legend: {
+                data: ['2014', '2015']
+            },
+            radar: {
+                // shape: 'circle',
+                indicator: [
+                   { name: 'SO2', max: 100 },
+                   { name: 'NO2', max: 100 },
+                   { name: 'PM10', max: 100 },
+                   { name: 'CO', max: 100 },
+                   { name: 'O3', max: 100 },
+                   { name: 'PM2.5', max: 100 }
+                ]
+            },
+            series: [{
+                name: '2014 vs 2015',
+                type: 'radar',
+                data: [
+                    {
+                        value: [randomData(), randomData(), randomData(), randomData(), randomData(), randomData()],
+                        name: '2014'
+                    },
+                     {
+                         value: [randomData(), randomData(), randomData(), randomData(), randomData(), randomData()],
+                         name: '2015'
+                     }
+                ]
+            }]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+}

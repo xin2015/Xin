@@ -1,0 +1,522 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F956DDF0-1472-49DC-B3AF-B5A6EBDF9E17}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xin.WebApplication</RootNamespace>
+    <AssemblyName>Xin.WebApplication</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Common.Logging, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.3.1\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.3.1\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net1215, Version=3.3.1.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Log4Net1215.3.3.1\lib\net40\Common.Logging.Log4Net1215.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EChartsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\echarts\map\json\china-contour.json" />
+    <Content Include="Scripts\echarts\map\json\china.json" />
+    <Content Include="Scripts\echarts\map\json\province\anhui.json" />
+    <Content Include="Scripts\echarts\map\json\province\aomen.json" />
+    <Content Include="Scripts\echarts\map\json\province\beijing.json" />
+    <Content Include="Scripts\echarts\map\json\province\chongqing.json" />
+    <Content Include="Scripts\echarts\map\json\province\fujian.json" />
+    <Content Include="Scripts\echarts\map\json\province\gansu.json" />
+    <Content Include="Scripts\echarts\map\json\province\guangdong.json" />
+    <Content Include="Scripts\echarts\map\json\province\guangxi.json" />
+    <Content Include="Scripts\echarts\map\json\province\guizhou.json" />
+    <Content Include="Scripts\echarts\map\json\province\hainan.json" />
+    <Content Include="Scripts\echarts\map\json\province\hebei.json" />
+    <Content Include="Scripts\echarts\map\json\province\heilongjiang.json" />
+    <Content Include="Scripts\echarts\map\json\province\henan.json" />
+    <Content Include="Scripts\echarts\map\json\province\hubei.json" />
+    <Content Include="Scripts\echarts\map\json\province\hunan.json" />
+    <Content Include="Scripts\echarts\map\json\province\jiangsu.json" />
+    <Content Include="Scripts\echarts\map\json\province\jiangxi.json" />
+    <Content Include="Scripts\echarts\map\json\province\jilin.json" />
+    <Content Include="Scripts\echarts\map\json\province\liaoning.json" />
+    <Content Include="Scripts\echarts\map\json\province\neimenggu.json" />
+    <Content Include="Scripts\echarts\map\json\province\ningxia.json" />
+    <Content Include="Scripts\echarts\map\json\province\qinghai.json" />
+    <Content Include="Scripts\echarts\map\json\province\shandong.json" />
+    <Content Include="Scripts\echarts\map\json\province\shanghai.json" />
+    <Content Include="Scripts\echarts\map\json\province\shanxi.json" />
+    <Content Include="Scripts\echarts\map\json\province\shanxi1.json" />
+    <Content Include="Scripts\echarts\map\json\province\sichuan.json" />
+    <Content Include="Scripts\echarts\map\json\province\tianjin.json" />
+    <Content Include="Scripts\echarts\map\json\province\xianggang.json" />
+    <Content Include="Scripts\echarts\map\json\province\xinjiang.json" />
+    <Content Include="Scripts\echarts\map\json\province\xizang.json" />
+    <Content Include="Scripts\echarts\map\json\province\yunnan.json" />
+    <Content Include="Scripts\echarts\map\json\province\zhejiang.json" />
+    <Content Include="Scripts\echarts\map\json\world.json" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Common.js" />
+    <Content Include="Scripts\echarts\dist\echarts.common.js" />
+    <Content Include="Scripts\echarts\dist\echarts.common.min.js" />
+    <Content Include="Scripts\echarts\dist\echarts.js" />
+    <Content Include="Scripts\echarts\dist\echarts.min.js" />
+    <Content Include="Scripts\echarts\dist\echarts.simple.js" />
+    <Content Include="Scripts\echarts\dist\echarts.simple.min.js" />
+    <Content Include="Scripts\echarts\dist\extension\bmap.js" />
+    <Content Include="Scripts\echarts\dist\extension\bmap.min.js" />
+    <Content Include="Scripts\echarts\dist\extension\dataTool.js" />
+    <Content Include="Scripts\echarts\dist\extension\dataTool.min.js" />
+    <Content Include="Scripts\echarts\map\js\china-contour.js" />
+    <Content Include="Scripts\echarts\map\js\china.js" />
+    <Content Include="Scripts\echarts\map\js\city\meizhou.js" />
+    <Content Include="Scripts\echarts\map\js\city\yangjiang.js" />
+    <Content Include="Scripts\echarts\map\js\city\yangjiang.min.js" />
+    <Content Include="Scripts\echarts\map\js\province\anhui.js" />
+    <Content Include="Scripts\echarts\map\js\province\aomen.js" />
+    <Content Include="Scripts\echarts\map\js\province\beijing.js" />
+    <Content Include="Scripts\echarts\map\js\province\chongqing.js" />
+    <Content Include="Scripts\echarts\map\js\province\fujian.js" />
+    <Content Include="Scripts\echarts\map\js\province\gansu.js" />
+    <Content Include="Scripts\echarts\map\js\province\guangdong.js" />
+    <Content Include="Scripts\echarts\map\js\province\guangxi.js" />
+    <Content Include="Scripts\echarts\map\js\province\guizhou.js" />
+    <Content Include="Scripts\echarts\map\js\province\hainan.js" />
+    <Content Include="Scripts\echarts\map\js\province\hebei.js" />
+    <Content Include="Scripts\echarts\map\js\province\heilongjiang.js" />
+    <Content Include="Scripts\echarts\map\js\province\henan.js" />
+    <Content Include="Scripts\echarts\map\js\province\hubei.js" />
+    <Content Include="Scripts\echarts\map\js\province\hunan.js" />
+    <Content Include="Scripts\echarts\map\js\province\jiangsu.js" />
+    <Content Include="Scripts\echarts\map\js\province\jiangxi.js" />
+    <Content Include="Scripts\echarts\map\js\province\jilin.js" />
+    <Content Include="Scripts\echarts\map\js\province\liaoning.js" />
+    <Content Include="Scripts\echarts\map\js\province\neimenggu.js" />
+    <Content Include="Scripts\echarts\map\js\province\ningxia.js" />
+    <Content Include="Scripts\echarts\map\js\province\qinghai.js" />
+    <Content Include="Scripts\echarts\map\js\province\shandong.js" />
+    <Content Include="Scripts\echarts\map\js\province\shanghai.js" />
+    <Content Include="Scripts\echarts\map\js\province\shanxi.js" />
+    <Content Include="Scripts\echarts\map\js\province\shanxi1.js" />
+    <Content Include="Scripts\echarts\map\js\province\sichuan.js" />
+    <Content Include="Scripts\echarts\map\js\province\tianjin.js" />
+    <Content Include="Scripts\echarts\map\js\province\xianggang.js" />
+    <Content Include="Scripts\echarts\map\js\province\xinjiang.js" />
+    <Content Include="Scripts\echarts\map\js\province\xizang.js" />
+    <Content Include="Scripts\echarts\map\js\province\yunnan.js" />
+    <Content Include="Scripts\echarts\map\js\province\zhejiang.js" />
+    <Content Include="Scripts\echarts\map\js\world.js" />
+    <Content Include="Scripts\echarts\theme\dark.js" />
+    <Content Include="Scripts\echarts\theme\infographic.js" />
+    <Content Include="Scripts\echarts\theme\macarons.js" />
+    <Content Include="Scripts\echarts\theme\roma.js" />
+    <Content Include="Scripts\echarts\theme\shine.js" />
+    <Content Include="Scripts\echarts\theme\tool\option\area.js" />
+    <Content Include="Scripts\echarts\theme\tool\option\bar.js" />
+    <Content Include="Scripts\echarts\theme\tool\option\graph.js" />
+    <Content Include="Scripts\echarts\theme\tool\option\map.js" />
+    <Content Include="Scripts\echarts\theme\tool\option\pie.js" />
+    <Content Include="Scripts\echarts\theme\tool\option\scatter.js" />
+    <Content Include="Scripts\echarts\theme\tool\thumb.js" />
+    <Content Include="Scripts\echarts\theme\vintage.js" />
+    <Content Include="Scripts\highcharts\highcharts-3d.js" />
+    <Content Include="Scripts\highcharts\highcharts-3d.src.js" />
+    <Content Include="Scripts\highcharts\highcharts-more.js" />
+    <Content Include="Scripts\highcharts\highcharts-more.src.js" />
+    <Content Include="Scripts\highcharts\highcharts.js" />
+    <Content Include="Scripts\highcharts\highcharts.src.js" />
+    <Content Include="Scripts\highcharts\modules\boost.js" />
+    <Content Include="Scripts\highcharts\modules\boost.src.js" />
+    <Content Include="Scripts\highcharts\modules\broken-axis.js" />
+    <Content Include="Scripts\highcharts\modules\broken-axis.src.js" />
+    <Content Include="Scripts\highcharts\modules\canvas-tools.js" />
+    <Content Include="Scripts\highcharts\modules\canvas-tools.src.js" />
+    <Content Include="Scripts\highcharts\modules\data.js" />
+    <Content Include="Scripts\highcharts\modules\data.src.js" />
+    <Content Include="Scripts\highcharts\modules\drilldown.js" />
+    <Content Include="Scripts\highcharts\modules\drilldown.src.js" />
+    <Content Include="Scripts\highcharts\modules\exporting.js" />
+    <Content Include="Scripts\highcharts\modules\exporting.src.js" />
+    <Content Include="Scripts\highcharts\modules\funnel.js" />
+    <Content Include="Scripts\highcharts\modules\funnel.src.js" />
+    <Content Include="Scripts\highcharts\modules\heatmap.js" />
+    <Content Include="Scripts\highcharts\modules\heatmap.src.js" />
+    <Content Include="Scripts\highcharts\modules\no-data-to-display.js" />
+    <Content Include="Scripts\highcharts\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\highcharts\modules\offline-exporting.js" />
+    <Content Include="Scripts\highcharts\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\highcharts\modules\solid-gauge.js" />
+    <Content Include="Scripts\highcharts\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\highcharts\modules\treemap.js" />
+    <Content Include="Scripts\highcharts\modules\treemap.src.js" />
+    <Content Include="Scripts\highcharts\themes\dark-blue.js" />
+    <Content Include="Scripts\highcharts\themes\dark-green.js" />
+    <Content Include="Scripts\highcharts\themes\dark-unica.js" />
+    <Content Include="Scripts\highcharts\themes\gray.js" />
+    <Content Include="Scripts\highcharts\themes\grid-light.js" />
+    <Content Include="Scripts\highcharts\themes\grid.js" />
+    <Content Include="Scripts\highcharts\themes\sand-signika.js" />
+    <Content Include="Scripts\highcharts\themes\skies.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\layer\layer.js" />
+    <Content Include="Scripts\layer\skin\default\icon-ext.png" />
+    <Content Include="Scripts\layer\skin\default\icon.png" />
+    <Content Include="Scripts\layer\skin\default\loading-0.gif" />
+    <Content Include="Scripts\layer\skin\default\loading-1.gif" />
+    <Content Include="Scripts\layer\skin\default\loading-2.gif" />
+    <Content Include="Scripts\layer\skin\layer.css" />
+    <Content Include="Scripts\LineHighcharts.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\My97DatePicker\calendar.js" />
+    <Content Include="Scripts\My97DatePicker\lang\en.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-cn.js" />
+    <Content Include="Scripts\My97DatePicker\lang\zh-tw.js" />
+    <Content Include="Scripts\My97DatePicker\skin\datePicker.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\default\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\default\img.gif" />
+    <Content Include="Scripts\My97DatePicker\skin\WdatePicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\bg.jpg" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\datepicker.css" />
+    <Content Include="Scripts\My97DatePicker\skin\whyGreen\img.gif" />
+    <Content Include="Scripts\My97DatePicker\WdatePicker.js" />
+    <Content Include="Scripts\PollutantConst.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\unitegallery\css\unite-gallery.css" />
+    <Content Include="Scripts\unitegallery\images\button-close.png" />
+    <Content Include="Scripts\unitegallery\images\cover-grid.png" />
+    <Content Include="Scripts\unitegallery\images\icon-link32.png" />
+    <Content Include="Scripts\unitegallery\images\icon-play32.png" />
+    <Content Include="Scripts\unitegallery\images\icon-zoom32.png" />
+    <Content Include="Scripts\unitegallery\images\lightbox-arrow-left.png" />
+    <Content Include="Scripts\unitegallery\images\lightbox-arrow-right.png" />
+    <Content Include="Scripts\unitegallery\images\lightbox-icon-close-compact.png" />
+    <Content Include="Scripts\unitegallery\images\lightbox-icon-close-compact2.png" />
+    <Content Include="Scripts\unitegallery\images\lightbox-icon-close.png" />
+    <Content Include="Scripts\unitegallery\images\loader-black1.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-black2.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-black3.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-black4.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-black5.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-black6.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-black7.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white1.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white2.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white3.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white4.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white5.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white6.gif" />
+    <Content Include="Scripts\unitegallery\images\loader-white7.gif" />
+    <Content Include="Scripts\unitegallery\images\loader.gif" />
+    <Content Include="Scripts\unitegallery\images\loader_bright.gif" />
+    <Content Include="Scripts\unitegallery\images\loader_skype_trans.gif" />
+    <Content Include="Scripts\unitegallery\images\not_loaded.png" />
+    <Content Include="Scripts\unitegallery\images\play-button-round.png" />
+    <Content Include="Scripts\unitegallery\images\play-button-square.png" />
+    <Content Include="Scripts\unitegallery\images\transparent.png" />
+    <Content Include="Scripts\unitegallery\js\jquery-11.0.min.js" />
+    <Content Include="Scripts\unitegallery\js\unitegallery.js" />
+    <Content Include="Scripts\unitegallery\js\unitegallery.min.js" />
+    <Content Include="Scripts\unitegallery\skins\alexis\alexis.css" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\arrows_strip_left.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\arrows_strip_right.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\button_fullscreen.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\button_playpause.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\button_zoom_back.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\button_zoom_minus.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\button_zoom_plus.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_arrow_down.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_arrow_left.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_arrow_left_hortype.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_arrow_right.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_arrow_right_hortype.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_arrow_up.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_handle_down.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_handle_left.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_handle_right.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\grid_handle_up.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\slider_arrow_left.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\slider_arrow_right.png" />
+    <Content Include="Scripts\unitegallery\skins\alexis\images\slider_bullets.png" />
+    <Content Include="Scripts\unitegallery\skins\default\arrows_strip_down.png" />
+    <Content Include="Scripts\unitegallery\skins\default\arrows_strip_left.png" />
+    <Content Include="Scripts\unitegallery\skins\default\arrows_strip_right.png" />
+    <Content Include="Scripts\unitegallery\skins\default\arrows_strip_up.png" />
+    <Content Include="Scripts\unitegallery\skins\default\arrow_grid_down.png" />
+    <Content Include="Scripts\unitegallery\skins\default\arrow_grid_up.png" />
+    <Content Include="Scripts\unitegallery\skins\default\button_fullscreen.png" />
+    <Content Include="Scripts\unitegallery\skins\default\button_playpause.png" />
+    <Content Include="Scripts\unitegallery\skins\default\grid_arrow_left.png" />
+    <Content Include="Scripts\unitegallery\skins\default\grid_arrow_right.png" />
+    <Content Include="Scripts\unitegallery\skins\default\grid_handle_black_bottom.png" />
+    <Content Include="Scripts\unitegallery\skins\default\grid_handle_black_left.png" />
+    <Content Include="Scripts\unitegallery\skins\default\grid_handle_black_right.png" />
+    <Content Include="Scripts\unitegallery\skins\default\grid_handle_black_top.png" />
+    <Content Include="Scripts\unitegallery\skins\default\icon_zoom_back.png" />
+    <Content Include="Scripts\unitegallery\skins\default\icon_zoom_minus.png" />
+    <Content Include="Scripts\unitegallery\skins\default\icon_zoom_plus.png" />
+    <Content Include="Scripts\unitegallery\skins\default\slider_arrow_left.png" />
+    <Content Include="Scripts\unitegallery\skins\default\slider_arrow_right.png" />
+    <Content Include="Scripts\unitegallery\skins\default\slider_bullets.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_bullets_blue.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_bullets_brown.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_bullets_gray.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_bullets_green.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_bullets_red.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_button_left.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_button_play_pause.png" />
+    <Content Include="Scripts\unitegallery\skins\default\tile_button_right.png" />
+    <Content Include="Scripts\unitegallery\themes\carousel\ug-theme-carousel.js" />
+    <Content Include="Scripts\unitegallery\themes\compact\ug-theme-compact.js" />
+    <Content Include="Scripts\unitegallery\themes\default\images\arrows_strip_left.png" />
+    <Content Include="Scripts\unitegallery\themes\default\images\arrows_strip_right.png" />
+    <Content Include="Scripts\unitegallery\themes\default\images\arrow_down_up.png" />
+    <Content Include="Scripts\unitegallery\themes\default\images\button_fullscreen.png" />
+    <Content Include="Scripts\unitegallery\themes\default\images\button_fullscreen_single.png" />
+    <Content Include="Scripts\unitegallery\themes\default\images\button_playpause.png" />
+    <Content Include="Scripts\unitegallery\themes\default\images\button_playpause_single.png" />
+    <Content Include="Scripts\unitegallery\themes\default\ug-theme-default.css" />
+    <Content Include="Scripts\unitegallery\themes\default\ug-theme-default.js" />
+    <Content Include="Scripts\unitegallery\themes\grid\ug-theme-grid.js" />
+    <Content Include="Scripts\unitegallery\themes\slider\ug-theme-slider.js" />
+    <Content Include="Scripts\unitegallery\themes\tilesgrid\ug-theme-tilesgrid.js" />
+    <Content Include="Scripts\unitegallery\themes\tiles\ug-theme-tiles.js" />
+    <Content Include="Scripts\unitegallery\themes\video\images\arrow_left.png" />
+    <Content Include="Scripts\unitegallery\themes\video\images\arrow_right.png" />
+    <Content Include="Scripts\unitegallery\themes\video\skin-bottom-text.css" />
+    <Content Include="Scripts\unitegallery\themes\video\skin-right-no-thumb.css" />
+    <Content Include="Scripts\unitegallery\themes\video\skin-right-thumb.css" />
+    <Content Include="Scripts\unitegallery\themes\video\skin-right-title-only.css" />
+    <Content Include="Scripts\unitegallery\themes\video\ug-theme-video.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Home\DayAQIReport.cshtml" />
+    <Content Include="Views\Home\My97DatePicker.cshtml" />
+    <Content Include="Views\ECharts\ScatterChina.cshtml" />
+    <Content Include="Views\ECharts\MapChina.cshtml" />
+    <Content Include="Views\ECharts\MapQH.cshtml" />
+    <Content Include="Views\ECharts\MapYJ.cshtml" />
+    <Content Include="Views\ECharts\MapMZ.cshtml" />
+    <Content Include="Views\ECharts\AQIReportMap.cshtml" />
+    <Content Include="Views\ECharts\Timeline.cshtml" />
+    <Content Include="Views\ECharts\XTimeline.cshtml" />
+    <Content Include="Views\ECharts\MapQHWithTimeline.cshtml" />
+    <Content Include="Views\ECharts\Radar.cshtml" />
+    <Content Include="Views\ECharts\RadarCustom.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Xin.AQS\Xin.AQS.csproj">
+      <Project>{6f1a2209-d543-4584-88e5-e269c4d0f756}</Project>
+      <Name>Xin.AQS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xin\Xin.csproj">
+      <Project>{3dab6192-9fe0-4ab1-b03f-4f05fa6ad0e5}</Project>
+      <Name>Xin</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>35065</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:35065/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>这台计算机上缺少此项目引用的 NuGet 程序包。使用“NuGet 程序包还原”可下载这些程序包。有关更多信息，请参见 http://go.microsoft.com/fwlink/?LinkID=322105。缺少的文件是 {0}。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

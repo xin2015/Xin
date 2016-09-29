@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "My97DatePicker";
+}
+<h2>My97DatePicker</h2>
+<span>
+    时间：
+    <input type="text" class="Wdate" name="beginTime" id="beginTime" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss', isShowClear: false, readOnly: true, maxDate: '#F{$dp.$D(\'endTime\')&&\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+    至
+    <input type="text" class="Wdate" name="endTime" id="endTime" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss', isShowClear: false, readOnly: true, minDate: '#F{$dp.$D(\'beginTime\')&&\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="结束时间" value="@ViewData["endTime"]">
+</span>
+@section scripts{
+    <script src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+}
