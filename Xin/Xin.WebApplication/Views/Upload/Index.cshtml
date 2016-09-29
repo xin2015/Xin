@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<input type="file" name="file" id="file" accept="image/*" />
+<img id="preview" style="display:none" />
+@section scripts{
+    <script src="~/Scripts/layer/layer.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#file").change(function () {
+                var $this = $(this);
+                var preview = $("#preview");
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    preview.attr("src", this.result);
+                    preview.show();
+                }
+                if (this.value != "") {
+                    reader.readAsDataURL(this.files[0]);
+                    var formData = new FormData();
+                    formData.append("file", this.files[0]);
+                    formData.append("imgType", "person");
+                    $.ajax({
+                        url: "/Upload/Upload",
+                        type: "POST",
+                        data: formData,
+                        processData: false,  //让ajax不要对data参数进行序列化处理，默认为true
+                        contentType: false   //让ajax不要设置Content-Type请求头，因为文件数据是以multipart/form-data来编码的
+                    }).done(function (jsonData) {
+                        var icon = 1;
+                        if (!jsonData.Status) icon = 2;
+                        layer.msg(jsonData.Message, { icon: icon, time: 1500 });
+                    });
+                }
+            });
+        });
+    </script>
+}

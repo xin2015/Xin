@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="NAQRPDService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/NAQRPD.Common" />
+      <xsd:import schemaLocation="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NAQRPD.Common.Evaluation" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="INAQRPDService_GetAQRPSDLive_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPSDLive" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPSDLive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPSDLiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQSPSDLive_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQSPSDLive" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQSPSDLive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQSPSDLiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPSDHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPSDHistory" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPSDHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPSDHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPSDLive_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPSDLive" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPSDLive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPSDLiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPSDHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPSDHistory" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPSDHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPSDHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPCDLive_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPCDLive" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPCDLive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPCDLiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPCDHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPCDHistory" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQRPCDHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQRPCDHistoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPCDLive_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPCDLive" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPCDLive_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPCDLiveResponse" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPCDHistory_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPCDHistory" />
+  </wsdl:message>
+  <wsdl:message name="INAQRPDService_GetAQDPCDHistory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAQDPCDHistoryResponse" />
+  </wsdl:message>
+  <wsdl:portType name="INAQRPDService">
+    <wsdl:operation name="GetAQRPSDLive">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPSDLive" message="tns:INAQRPDService_GetAQRPSDLive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPSDLiveResponse" message="tns:INAQRPDService_GetAQRPSDLive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQSPSDLive">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQSPSDLive" message="tns:INAQRPDService_GetAQSPSDLive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQSPSDLiveResponse" message="tns:INAQRPDService_GetAQSPSDLive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQRPSDHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPSDHistory" message="tns:INAQRPDService_GetAQRPSDHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPSDHistoryResponse" message="tns:INAQRPDService_GetAQRPSDHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPSDLive">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPSDLive" message="tns:INAQRPDService_GetAQDPSDLive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPSDLiveResponse" message="tns:INAQRPDService_GetAQDPSDLive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPSDHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPSDHistory" message="tns:INAQRPDService_GetAQDPSDHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPSDHistoryResponse" message="tns:INAQRPDService_GetAQDPSDHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQRPCDLive">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPCDLive" message="tns:INAQRPDService_GetAQRPCDLive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPCDLiveResponse" message="tns:INAQRPDService_GetAQRPCDLive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQRPCDHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPCDHistory" message="tns:INAQRPDService_GetAQRPCDHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQRPCDHistoryResponse" message="tns:INAQRPDService_GetAQRPCDHistory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPCDLive">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPCDLive" message="tns:INAQRPDService_GetAQDPCDLive_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPCDLiveResponse" message="tns:INAQRPDService_GetAQDPCDLive_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPCDHistory">
+      <wsdl:input wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPCDHistory" message="tns:INAQRPDService_GetAQDPCDHistory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/INAQRPDService/GetAQDPCDHistoryResponse" message="tns:INAQRPDService_GetAQDPCDHistory_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_INAQRPDService" type="tns:INAQRPDService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAQRPSDLive">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQRPSDLive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQSPSDLive">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQSPSDLive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQRPSDHistory">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQRPSDHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPSDLive">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQDPSDLive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPSDHistory">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQDPSDHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQRPCDLive">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQRPCDLive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQRPCDHistory">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQRPCDHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPCDLive">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQDPCDLive" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAQDPCDHistory">
+      <soap:operation soapAction="http://tempuri.org/INAQRPDService/GetAQDPCDHistory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="NAQRPDService">
+    <wsdl:port name="BasicHttpBinding_INAQRPDService" binding="tns:BasicHttpBinding_INAQRPDService">
+      <soap:address location="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

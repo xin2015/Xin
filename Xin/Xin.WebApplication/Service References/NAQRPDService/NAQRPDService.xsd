@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NAQRPD.Common" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NAQRPD.Common" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NAQRPD.Common.Evaluation" />
+  <xs:complexType name="ArrayOfAQRPD">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AQRPD" nillable="true" type="tns:AQRPD" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAQRPD" nillable="true" type="tns:ArrayOfAQRPD" />
+  <xs:complexType name="AQRPD">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q1="http://schemas.datacontract.org/2004/07/NAQRPD.Common.Evaluation" base="q1:HourAQICalculate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AQRPD" nillable="true" type="tns:AQRPD" />
+  <xs:complexType name="ArrayOfAQDPD">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AQDPD" nillable="true" type="tns:AQDPD" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAQDPD" nillable="true" type="tns:ArrayOfAQDPD" />
+  <xs:complexType name="AQDPD">
+    <xs:complexContent mixed="false">
+      <xs:extension xmlns:q2="http://schemas.datacontract.org/2004/07/NAQRPD.Common.Evaluation" base="q2:DayAQICalculate">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Code" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Time" type="xs:dateTime" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AQDPD" nillable="true" type="tns:AQDPD" />
+</xs:schema>

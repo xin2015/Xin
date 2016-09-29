@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "MultipleFilesUpload";
+}
+
+<input type="file" name="file" id="file" accept="image/*" multiple="multiple" />
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#file").change(function () {
+                var $this = $(this);
+
+                if (this.value != "") {
+                    var formData = new FormData();
+                    for (var i = 0; i < this.files.length; i++) {
+                        var reader = new FileReader();
+                        var file = this.files[i];
+                        reader.onload = function (event) {
+                            $this.parent().append($('<img src="' + this.result + '">'));
+                        }
+                        reader.readAsDataURL(file);
+                        formData.append(file.name, file);
+                    }
+                    formData.append("imgType", "person");
+                    $.ajax({
+                        url: "/Upload/Upload",
+                        processData: false,//让ajax不要字符串化参数对象
+                        contentType: false,//让ajax不要设置Content-Type
+                        data: formData,
+                        type: "POST"
+                    }).done(function (jsonData) {
+                        console.log(jsonData);
+                    });
+                }
+            });
+        });
+    </script>
+}

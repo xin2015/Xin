@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="851e80cd-5492-4ff7-9ca8-c97b6de36091" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="NAQRPDService.disco" MetadataType="Disco" ID="b2ec066d-3ab6-403e-b61d-55973b694a57" SourceId="1" SourceUrl="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?disco" />
+    <MetadataFile FileName="NAQRPDService.xsd" MetadataType="Schema" ID="95c75cd0-dcba-4ac4-9230-ff47d4fc9e02" SourceId="1" SourceUrl="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd2" />
+    <MetadataFile FileName="NAQRPDService1.xsd" MetadataType="Schema" ID="9de41a56-6c10-494d-9feb-929842c5888a" SourceId="1" SourceUrl="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd3" />
+    <MetadataFile FileName="NAQRPDService2.xsd" MetadataType="Schema" ID="52653ccc-1e15-4b11-a040-af1c09f44f95" SourceId="1" SourceUrl="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd0" />
+    <MetadataFile FileName="NAQRPDService3.xsd" MetadataType="Schema" ID="52bd158f-e8aa-42ba-98df-1f8553ac3106" SourceId="1" SourceUrl="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?xsd=xsd1" />
+    <MetadataFile FileName="NAQRPDService.wsdl" MetadataType="Wsdl" ID="74640267-987b-4fcd-9b5e-70a939e5d9cf" SourceId="1" SourceUrl="http://cityphoto.suncereltd.cn:18407/NAQRPDWCF/NAQRPDService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

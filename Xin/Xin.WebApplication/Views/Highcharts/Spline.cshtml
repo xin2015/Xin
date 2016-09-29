@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Spline";
+}
+
+<div id="chart" style="height:400px;"></div>
+@section scripts{
+    <script src="~/Scripts/highcharts/highcharts.js"></script>
+    <script src="~/Scripts/highcharts/modules/no-data-to-display.js"></script>
+    <script src="~/Scripts/highcharts/modules/exporting.js"></script>
+    <script src="~/Scripts/highcharts/modules/offline-exporting.js"></script>
+    <script src="~/Scripts/Common.js"></script>
+    <script src="~/Scripts/PollutantConst.js"></script>
+    <script src="~/Scripts/LineHighcharts.js"></script>
+    <script type="text/javascript">
+        var chart = new LineHighcharts($("#chart"));
+        var pollutantConst = new PollutantConst();
+        chart.titleText = "空气质量小时值";
+        chart.subtitleText = "SO<sub>2</sub>(μg/m³)";
+        chart.exportingFileName = "空气质量小时值折线图";
+
+        function randomData() {
+            return Math.round(Math.random() * 150 - 10);
+        }
+
+        var time = new Date(2016, 1, 1);
+        chart.series.push({ name: '广州', data: [] });
+        chart.series.push({ name: '深圳', data: [] });
+        for (var i = 0; i < 24; i++) {
+            time.setTime(time.getTime() + 3600000);
+            chart.xAxisCategories.push(time.ToString("yyyy-MM-dd HH:mm"));
+            chart.series[0].data.push(randomData());
+            chart.series[1].data.push(randomData());
+        }
+        chart.yAxisPlotLines = pollutantConst.GetPlotLines("hour", "SO2");
+        chart.xAxisTickInterval = Math.round(24 / 7);
+
+        chart.DrawChart();
+    </script>
+}
