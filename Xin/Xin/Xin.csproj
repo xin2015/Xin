@@ -100,6 +100,7 @@
     <Compile Include="FastReflection\PropertyAccessorCache.cs" />
     <Compile Include="FastReflection\PropertyAccessorFactory.cs" />
     <Compile Include="HttpHelper.cs" />
+    <Compile Include="MD5Helper.cs" />
     <Compile Include="MemoryCacheHelper.cs" />
     <Compile Include="NPOIHelper.cs" />
     <Compile Include="PagingHelper.cs" />
