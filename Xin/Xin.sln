@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin", "Xin\Xin.csproj", "{3DAB6192-9FE0-4AB1-B03F-4F05FA6AD0E5}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.AQECalculator", "Xin.AQECalculator\Xin.AQECalculator.csproj", "{3ECCD06C-A31F-4FA1-A2A9-D5CBF1A6BAB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.TopshelfQuartz", "Xin.TopshelfQuartz\Xin.TopshelfQuartz.csproj", "{A683DC9A-5D0A-4FB1-AE36-83EB141590C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.ConsoleApplication", "Xin.ConsoleApplication\Xin.ConsoleApplication.csproj", "{BE91B7FA-4322-47CB-B066-B59620F72FE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{A683DC9A-5D0A-4FB1-AE36-83EB141590C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A683DC9A-5D0A-4FB1-AE36-83EB141590C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A683DC9A-5D0A-4FB1-AE36-83EB141590C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

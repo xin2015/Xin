@@ -80,6 +80,9 @@
   <ItemGroup>
     <Compile Include="BasicConfiguration.cs" />
     <Compile Include="CommonEqualityComparer.cs" />
+    <Compile Include="CryptogramHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DataTableHelper.cs" />
     <Compile Include="FastReflection\ConstructorInvoker.cs" />
     <Compile Include="FastReflection\ConstructorInvokerCache.cs" />
@@ -100,7 +103,6 @@
     <Compile Include="FastReflection\PropertyAccessorCache.cs" />
     <Compile Include="FastReflection\PropertyAccessorFactory.cs" />
     <Compile Include="HttpHelper.cs" />
-    <Compile Include="MD5Helper.cs" />
     <Compile Include="MemoryCacheHelper.cs" />
     <Compile Include="NPOIHelper.cs" />
     <Compile Include="PagingHelper.cs" />
