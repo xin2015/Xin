@@ -59,11 +59,6 @@ namespace Xin.WebApplication.Controllers
             return View();
         }
 
-        public ActionResult MapQHDynamic()
-        {
-            return View();
-        }
-
         public ActionResult Radar()
         {
             return View();

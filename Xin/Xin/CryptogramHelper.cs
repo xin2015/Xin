@@ -47,31 +47,31 @@ namespace Xin
             return Convert.ToBase64String(md5.ComputeHash(Encoding.UTF8.GetBytes(text)));
         }
 
-        public static string EncryptTo32ByMD5(string input)
-        {
-            byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            return sBuilder.ToString();
-        }
+        //public static string EncryptTo32ByMD5(string input)
+        //{
+        //    byte[] data = md5.ComputeHash(Encoding.UTF8.GetBytes(input));
+        //    StringBuilder sBuilder = new StringBuilder();
+        //    for (int i = 0; i < data.Length; i++)
+        //    {
+        //        sBuilder.Append(data[i].ToString("x2"));
+        //    }
+        //    return sBuilder.ToString();
+        //}
 
         public static string EncryptBySHA256(string text)
         {
             return Convert.ToBase64String(mySHA256.ComputeHash(Encoding.UTF8.GetBytes(text)));
         }
 
-        public static string EncryptTo64BySHA256(string input)
-        {
-            byte[] data = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(input));
-            StringBuilder sBuilder = new StringBuilder();
-            for (int i = 0; i < data.Length; i++)
-            {
-                sBuilder.Append(data[i].ToString("x2"));
-            }
-            return sBuilder.ToString();
-        }
+        //public static string EncryptTo64BySHA256(string input)
+        //{
+        //    byte[] data = mySHA256.ComputeHash(Encoding.UTF8.GetBytes(input));
+        //    StringBuilder sBuilder = new StringBuilder();
+        //    for (int i = 0; i < data.Length; i++)
+        //    {
+        //        sBuilder.Append(data[i].ToString("x2"));
+        //    }
+        //    return sBuilder.ToString();
+        //}
     }
 }
