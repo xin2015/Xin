@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using Xin.AQS.AQE;
@@ -12,6 +13,13 @@ namespace Xin.WebApplication.Controllers
     {
         public ActionResult Index()
         {
+            Assembly asm = Assembly.GetExecutingAssembly();
+            Type[] types = asm.GetTypes();
+            List<Type> controllerList = types.Where(o => o.Name.EndsWith("Controller")).ToList();
+            controllerList.ForEach(o =>
+            {
+                MethodInfo[] methods = o.GetMethods();
+            });
             return View();
         }
 
@@ -22,6 +30,7 @@ namespace Xin.WebApplication.Controllers
             return View();
         }
 
+        [ActionName("联系方式")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,11 +11,7 @@ namespace Xin.ConsoleApplication
     {
         static void Main(string[] args)
         {
-            string a = "ymssn";
-            string b = "liuhaixin";
-            string c = CryptogramHelper.Encrypt(a, b);
-            string d;
-            CryptogramHelper.Decrypt(c, b, out d);
+            string a = CryptogramHelper.EncryptByMD5("123456");
         }
     }
 }
