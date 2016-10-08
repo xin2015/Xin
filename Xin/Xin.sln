@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.TopshelfQuartz", "Xin.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.ConsoleApplication", "Xin.ConsoleApplication\Xin.ConsoleApplication.csproj", "{BE91B7FA-4322-47CB-B066-B59620F72FE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.WindowsFormsApplication", "Xin.WindowsFormsApplication\Xin.WindowsFormsApplication.csproj", "{49634E0D-C007-425A-800D-83F07AD8B1CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE91B7FA-4322-47CB-B066-B59620F72FE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49634E0D-C007-425A-800D-83F07AD8B1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49634E0D-C007-425A-800D-83F07AD8B1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49634E0D-C007-425A-800D-83F07AD8B1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49634E0D-C007-425A-800D-83F07AD8B1CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
