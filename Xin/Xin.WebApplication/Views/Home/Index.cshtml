@@ -29,3 +29,16 @@
         <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: "/Home/Test",
+                data: { encryptedString: "@Model" }
+            }).done(function (result) {
+                console.log(result);
+            });
+        });
+    </script>
+}

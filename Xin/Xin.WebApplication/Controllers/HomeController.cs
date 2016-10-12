@@ -13,14 +13,20 @@ namespace Xin.WebApplication.Controllers
     {
         public ActionResult Index()
         {
-            Assembly asm = Assembly.GetExecutingAssembly();
-            Type[] types = asm.GetTypes();
-            List<Type> controllerList = types.Where(o => o.Name.EndsWith("Controller")).ToList();
-            controllerList.ForEach(o =>
-            {
-                MethodInfo[] methods = o.GetMethods();
-            });
+            string encryptedString = CryptogramHelper.Encrypt(string.Format("EnvQFWS$admin${0}", DateTime.Now), "650960");
+
+            ViewData.Model = encryptedString;
+            //ViewData.Model = HttpUtility.UrlEncode(encryptedString);
             return View();
+        }
+
+        public JsonResult Test(string encryptedString)
+        {
+            bool result;
+            string originalString;
+            if (CryptogramHelper.Decrypt(encryptedString, "650960", out originalString)) result = true;
+            else result = false;
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()
