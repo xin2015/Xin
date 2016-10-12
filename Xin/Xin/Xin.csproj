@@ -79,6 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicConfiguration.cs" />
+    <Compile Include="Cache\MemoryCacheExtension.cs" />
     <Compile Include="CommonEqualityComparer.cs" />
     <Compile Include="CryptogramHelper.cs">
       <SubType>Code</SubType>
@@ -103,7 +104,6 @@
     <Compile Include="FastReflection\PropertyAccessorCache.cs" />
     <Compile Include="FastReflection\PropertyAccessorFactory.cs" />
     <Compile Include="HttpHelper.cs" />
-    <Compile Include="MemoryCacheHelper.cs" />
     <Compile Include="NPOIHelper.cs" />
     <Compile Include="PagingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
