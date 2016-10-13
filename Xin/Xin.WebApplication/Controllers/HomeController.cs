@@ -13,7 +13,7 @@ namespace Xin.WebApplication.Controllers
     {
         public ActionResult Index()
         {
-            string encryptedString = CryptogramHelper.Encrypt(string.Format("EnvQFWS$admin${0}", DateTime.Now), "650960");
+            string encryptedString = CryptogramHelper.Encrypt(string.Format("EnvQFWS_MZ$admin${0}", DateTime.Now));
 
             ViewData.Model = encryptedString;
             //ViewData.Model = HttpUtility.UrlEncode(encryptedString);
@@ -22,11 +22,8 @@ namespace Xin.WebApplication.Controllers
 
         public JsonResult Test(string encryptedString)
         {
-            bool result;
-            string originalString;
-            if (CryptogramHelper.Decrypt(encryptedString, "650960", out originalString)) result = true;
-            else result = false;
-            return Json(result, JsonRequestBehavior.AllowGet);
+            string originalString = CryptogramHelper.Decrypt(encryptedString);
+            return Json(originalString, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult About()
