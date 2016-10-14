@@ -15,6 +15,8 @@ namespace Xin.ConsoleApplication
     {
         static void Main(string[] args)
         {
+            string a = IPHelper.GetExtranetIPAddress();
+            var b = IPHelper.GetHostIPAddress();
             string url = "http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201608/t20160809_1386477.html";
             DataTable dt = new DataTable();
             dt.Columns.Add("Code", typeof(int));
