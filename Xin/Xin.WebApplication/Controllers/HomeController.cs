@@ -20,6 +20,12 @@ namespace Xin.WebApplication.Controllers
             return View();
         }
 
+        public JsonResult GetIPAddress()
+        {
+            string ip = Request.UserHostAddress;
+            return Json(ip, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Test(string encryptedString)
         {
             string originalString = CryptogramHelper.Decrypt(encryptedString);
