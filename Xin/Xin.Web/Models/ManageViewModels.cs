@@ -8,15 +8,8 @@ namespace Xin.Web.Models
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }
-        public IList<UserLoginInfo> Logins { get; set; }
+        public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public bool BrowserRemembered { get; set; }
-    }
-
-    public class ManageLoginsViewModel
-    {
-        public IList<UserLoginInfo> CurrentLogins { get; set; }
-        public IList<AuthenticationDescription> OtherLogins { get; set; }
     }
 
     public class SetPasswordViewModel
@@ -50,6 +43,14 @@ namespace Xin.Web.Models
         [Display(Name = "确认新密码")]
         [Compare("NewPassword", ErrorMessage = "新密码和确认密码不匹配。")]
         public string ConfirmPassword { get; set; }
+    }
+
+    public class AddEmailViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "电子邮件")]
+        public string Email { get; set; }
     }
 
     public class AddPhoneNumberViewModel
