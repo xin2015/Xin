@@ -26,10 +26,12 @@ namespace Xin.WebApplication.Controllers
             return Json(ip, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public JsonResult Test(string encryptedString)
         {
             string originalString = CryptogramHelper.Decrypt(encryptedString);
-            return Json(originalString, JsonRequestBehavior.AllowGet);
+            return Json(originalString, JsonRequestBehavior.DenyGet);
         }
 
         public ActionResult About()

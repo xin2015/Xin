@@ -32,10 +32,12 @@
 
 @section scripts{
     <script type="text/javascript">
+        var token = $('@Html.AntiForgeryToken()').val();
         $(document).ready(function () {
             $.ajax({
                 url: "/Home/Test",
-                data: { encryptedString: "@Model" }
+                method: "POST",
+                data: { encryptedString: "@Model", __RequestVerificationToken: token }
             }).done(function (result) {
                 console.log(result);
             });
