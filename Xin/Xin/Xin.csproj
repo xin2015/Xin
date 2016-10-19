@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicConfiguration.cs" />
+    <Compile Include="ByteExtension.cs" />
     <Compile Include="Cache\MemoryCacheExtension.cs" />
     <Compile Include="CommonEqualityComparer.cs" />
     <Compile Include="CryptogramHelper.cs">

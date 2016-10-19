@@ -21,5 +21,15 @@ namespace Xin
         {
             return source.Substring(startIndex, endIndex - startIndex);
         }
+
+        public static byte[] FromBase64String(this string text)
+        {
+            return Convert.FromBase64String(text);
+        }
+
+        public static byte[] FromUTF8String(this string text)
+        {
+            return Encoding.UTF8.GetBytes(text);
+        }
     }
 }
