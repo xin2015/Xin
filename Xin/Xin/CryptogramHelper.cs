@@ -18,10 +18,15 @@ namespace Xin
             _RSACryptoServiceProvider = new RSACryptoServiceProvider();
             _SHA256 = SHA256.Create();
             defaultKey = "Hume2016!@";
+            byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(defaultKey));
+            byte[] tdesIV = tdesKey.Take(16).ToArray();
+            _Aes.Key = tdesKey;
+            _Aes.IV = tdesIV;
             publicRSAKey = "BgIAAACkAABSU0ExAAQAAAEAAQAnKEtami2zzISUzbFW0il1htem19ThfZyQqayJtlV4oNHautm3u9rHbfPhqMpTQ/oBYBHHfP3tj9qBmLxePaLlkE8nhYDWpHDKq9KM/zSZjHlsFEhuW/AMCSwBgFzZ/zTe9ulfWcLid/hNClFO3QHs+AJKoqBgMCg6QgMzNqZ+oA==";
             privateRSAKey = "BwIAAACkAABSU0EyAAQAAAEAAQAnKEtami2zzISUzbFW0il1htem19ThfZyQqayJtlV4oNHautm3u9rHbfPhqMpTQ/oBYBHHfP3tj9qBmLxePaLlkE8nhYDWpHDKq9KM/zSZjHlsFEhuW/AMCSwBgFzZ/zTe9ulfWcLid/hNClFO3QHs+AJKoqBgMCg6QgMzNqZ+oMXskcBMGj2lKyFM4Otdfi4gxdBGvNV9rimPEzq2NsWBo7c0uisVtDtANO0ZcUij/XBqJcgn7JudYQ9NbxkVROL7J+59mdVw/pzD23J2F0Ir2DHL0ugj+aYCB6My3JC8Z3LvMkWJZIcmcTQbOJol03CWNEehqClC3oUv5nY47ZW1DQiqWETAhzLQNy2ag2+jXlifgmY9ikOTfI0wfVDduYjaFBtOur+xFWI4v75GANP6FwCNNXcEhjVaZrv9QYfTUP1vSvEVx70pe61L4KFVXCSfYDDnA3eaWbriXUFrhQbw2XzDq1OuiTdE+EjpJu1DFbyIpUmNsoHvQnrY5JmLhzwijruy0ooLK9gikxwVZeyRsDRbSD5062vHqv3iSwqriOQzwn7xuCnq3StuHKlgm8yi5fyfsOXYmI1CnWFG+HF0kXZ1Csd+s4ouzPq/FPQ/nYuVFYuoPzOxLPl2mGUQi7/m5tyQnj/s4fH/kdivKEIclhJrbB04TDjuEGzduyA7WDWiDAx7uSL4AwafVbOz8Vc4qw0FEBrnnYjKwHUEJrTzsiSc4rp3XXSCWrbUEiUyOY/QF//tK6ZBWmhkuIVAYyI=";
             _RSACryptoServiceProvider.ImportCspBlob(publicRSAKey.FromBase64String());
             _RSACryptoServiceProvider.ImportCspBlob(privateRSAKey.FromBase64String());
+            encryptCount = _RSACryptoServiceProvider.KeySize / 8 - 11;
         }
 
         private static Aes _Aes;
@@ -36,6 +41,7 @@ namespace Xin
         /// RSA算法（非对称）解密私钥
         /// </summary>
         private static string privateRSAKey;
+        private static int encryptCount;
 
         #region 对称加密
         /// <summary>
@@ -188,13 +194,40 @@ namespace Xin
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
                 RSA.ImportCspBlob(keyBlob);
-                return RSA.Encrypt(inputBuffer, false);
+                int encryptCount = RSA.KeySize / 8 - 11;
+                if (inputBuffer.Length <= encryptCount)
+                {
+                    return RSA.Encrypt(inputBuffer, false);
+                }
+                else
+                {
+                    List<byte> list = new List<byte>();
+                    while (inputBuffer.Any())
+                    {
+                        list.AddRange(RSA.Encrypt(inputBuffer.Take(encryptCount).ToArray(), false));
+                        inputBuffer = inputBuffer.Skip(encryptCount).ToArray();
+                    }
+                    return list.ToArray();
+                }
             }
         }
 
         public static byte[] AsymmetricEncrypt(byte[] inputBuffer)
         {
-            return _RSACryptoServiceProvider.Encrypt(inputBuffer, false);
+            if (inputBuffer.Length <= encryptCount)
+            {
+                return _RSACryptoServiceProvider.Encrypt(inputBuffer, false);
+            }
+            else
+            {
+                List<byte> list = new List<byte>();
+                while (inputBuffer.Any())
+                {
+                    list.AddRange(_RSACryptoServiceProvider.Encrypt(inputBuffer.Take(encryptCount).ToArray(), false));
+                    inputBuffer = inputBuffer.Skip(encryptCount).ToArray();
+                }
+                return list.ToArray();
+            }
         }
 
         public static string AsymmetricEncrypt(string inString, byte[] keyBlob)
