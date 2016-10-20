@@ -43,7 +43,8 @@ namespace Xin
         private static string privateRSAKey;
         private static int encryptCount;
 
-        #region 对称加密
+        #region SymmetricalEncryption 对称加密
+        #region Encrypt
         /// <summary>
         /// 使用Aes进行对称加密
         /// </summary>
@@ -60,13 +61,24 @@ namespace Xin
         /// 使用Aes进行对称加密，密钥与初始化向量关联
         /// </summary>
         /// <param name="inputBuffer">待加密的字节数组</param>
+        /// <param name="tdesKey">Aes算法的密钥字节数组</param>
+        /// <returns>加密后的字节数组</returns>
+        public static byte[] Encrypt(byte[] inputBuffer, byte[] tdesKey)
+        {
+            byte[] tdesIV = tdesKey.Take(16).ToArray();
+            return Encrypt(inputBuffer, tdesKey, tdesIV);
+        }
+
+        /// <summary>
+        /// 使用Aes进行对称加密，密钥与初始化向量关联
+        /// </summary>
+        /// <param name="inputBuffer">待加密的字节数组</param>
         /// <param name="key">Aes算法的密钥字符串</param>
         /// <returns>加密后的字节数组</returns>
         public static byte[] Encrypt(byte[] inputBuffer, string key)
         {
             byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(key));
-            byte[] tdesIV = tdesKey.Take(16).ToArray();
-            return Encrypt(inputBuffer, tdesKey, tdesIV);
+            return Encrypt(inputBuffer, tdesKey);
         }
 
         /// <summary>
@@ -76,7 +88,7 @@ namespace Xin
         /// <returns>加密后的字节数组</returns>
         public static byte[] Encrypt(byte[] inputBuffer)
         {
-            return Encrypt(inputBuffer, defaultKey);
+            return _Aes.CreateEncryptor().TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
         }
 
         /// <summary>
@@ -89,8 +101,19 @@ namespace Xin
         public static string Encrypt(string inString, byte[] tdesKey, byte[] tdesIV)
         {
             byte[] inputBuffer = Encoding.UTF8.GetBytes(inString);
-            byte[] outputBuffer = Encrypt(inputBuffer, tdesKey, tdesIV);
-            return outputBuffer.ToBase64String();
+            return Encrypt(inputBuffer, tdesKey, tdesIV).ToBase64String();
+        }
+
+        /// <summary>
+        /// 使用Aes进行对称加密，密钥与初始化向量关联
+        /// </summary>
+        /// <param name="inString">待加密的字符串</param>
+        /// <param name="tdesKey">Aes算法的密钥字节数组</param>
+        /// <returns>加密后的字符串</returns>
+        public static string Encrypt(string inString, byte[] tdesKey)
+        {
+            byte[] tdesIV = tdesKey.Take(16).ToArray();
+            return Encrypt(inString, tdesKey, tdesIV);
         }
 
         /// <summary>
@@ -102,8 +125,7 @@ namespace Xin
         public static string Encrypt(string inString, string key)
         {
             byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(key));
-            byte[] tdesIV = tdesKey.Take(16).ToArray();
-            return Encrypt(inString, tdesKey, tdesIV);
+            return Encrypt(inString, tdesKey);
         }
 
         /// <summary>
@@ -113,9 +135,11 @@ namespace Xin
         /// <returns>加密后的字符串</returns>
         public static string Encrypt(string inString)
         {
-            return Encrypt(inString, defaultKey);
+            byte[] inputBuffer = inString.FromUTF8String();
+            return Encrypt(inputBuffer).ToBase64String();
         }
-
+        #endregion
+        #region Decrypt
         /// <summary>
         /// 使用Aes进行对称解密
         /// </summary>
@@ -132,13 +156,24 @@ namespace Xin
         /// 使用Aes进行对称解密，密钥与初始化向量关联
         /// </summary>
         /// <param name="inputBuffer">待解密的字节数组</param>
+        /// <param name="tdesKey">Aes算法的密钥字节数组</param>
+        /// <returns>解密后的字节数组</returns>
+        public static byte[] Decrypt(byte[] inputBuffer, byte[] tdesKey)
+        {
+            byte[] tdesIV = tdesKey.Take(16).ToArray();
+            return Decrypt(inputBuffer, tdesKey, tdesIV);
+        }
+
+        /// <summary>
+        /// 使用Aes进行对称解密，密钥与初始化向量关联
+        /// </summary>
+        /// <param name="inputBuffer">待解密的字节数组</param>
         /// <param name="key">Aes算法的密钥字符串</param>
         /// <returns>解密后的字节数组</returns>
         public static byte[] Decrypt(byte[] inputBuffer, string key)
         {
             byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(key));
-            byte[] tdesIV = tdesKey.Take(16).ToArray();
-            return Decrypt(inputBuffer, tdesKey, tdesIV);
+            return Decrypt(inputBuffer, tdesKey);
         }
 
         /// <summary>
@@ -148,7 +183,7 @@ namespace Xin
         /// <returns>解密后的字节数组</returns>
         public static byte[] Decrypt(byte[] inputBuffer)
         {
-            return Decrypt(inputBuffer, defaultKey);
+            return _Aes.CreateDecryptor().TransformFinalBlock(inputBuffer, 0, inputBuffer.Length);
         }
 
         /// <summary>
@@ -160,9 +195,20 @@ namespace Xin
         /// <returns>解密后的字符串</returns>
         public static string Decrypt(string inString, byte[] tdesKey, byte[] tdesIV)
         {
-            byte[] inputBuffer = Convert.FromBase64String(inString);
-            byte[] outputBuffer = Decrypt(inputBuffer, tdesKey, tdesIV);
-            return outputBuffer.ToUTF8String();
+            byte[] inputBuffer = inString.FromBase64String();
+            return Decrypt(inputBuffer, tdesKey, tdesIV).ToUTF8String();
+        }
+
+        /// <summary>
+        /// 使用Aes进行对称解密，密钥与初始化向量关联
+        /// </summary>
+        /// <param name="inString">待解密的字符串</param>
+        /// <param name="tdesKey">Aes算法的密钥字节数组</param>
+        /// <returns>解密后的字符串</returns>
+        public static string Decrypt(string inString, byte[] tdesKey)
+        {
+            byte[] tdesIV = tdesKey.Take(16).ToArray();
+            return Decrypt(inString, tdesKey, tdesIV);
         }
 
         /// <summary>
@@ -174,8 +220,7 @@ namespace Xin
         public static string Decrypt(string inString, string key)
         {
             byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(key));
-            byte[] tdesIV = tdesKey.Take(16).ToArray();
-            return Decrypt(inString, tdesKey, tdesIV);
+            return Decrypt(inString, tdesKey);
         }
 
         /// <summary>
@@ -185,10 +230,12 @@ namespace Xin
         /// <returns>解密后的字符串</returns>
         public static string Decrypt(string inString)
         {
-            return Decrypt(inString, defaultKey);
+            byte[] inputBuffer = inString.FromBase64String();
+            return Decrypt(inputBuffer).ToUTF8String();
         }
         #endregion
-        #region 非对称加密
+        #endregion
+        #region AsymmetricEncryption 非对称加密
         public static byte[] AsymmetricEncrypt(byte[] inputBuffer, byte[] keyBlob)
         {
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
