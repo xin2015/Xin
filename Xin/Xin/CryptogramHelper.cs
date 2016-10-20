@@ -26,7 +26,8 @@ namespace Xin
             privateRSAKey = "BwIAAACkAABSU0EyAAQAAAEAAQAnKEtami2zzISUzbFW0il1htem19ThfZyQqayJtlV4oNHautm3u9rHbfPhqMpTQ/oBYBHHfP3tj9qBmLxePaLlkE8nhYDWpHDKq9KM/zSZjHlsFEhuW/AMCSwBgFzZ/zTe9ulfWcLid/hNClFO3QHs+AJKoqBgMCg6QgMzNqZ+oMXskcBMGj2lKyFM4Otdfi4gxdBGvNV9rimPEzq2NsWBo7c0uisVtDtANO0ZcUij/XBqJcgn7JudYQ9NbxkVROL7J+59mdVw/pzD23J2F0Ir2DHL0ugj+aYCB6My3JC8Z3LvMkWJZIcmcTQbOJol03CWNEehqClC3oUv5nY47ZW1DQiqWETAhzLQNy2ag2+jXlifgmY9ikOTfI0wfVDduYjaFBtOur+xFWI4v75GANP6FwCNNXcEhjVaZrv9QYfTUP1vSvEVx70pe61L4KFVXCSfYDDnA3eaWbriXUFrhQbw2XzDq1OuiTdE+EjpJu1DFbyIpUmNsoHvQnrY5JmLhzwijruy0ooLK9gikxwVZeyRsDRbSD5062vHqv3iSwqriOQzwn7xuCnq3StuHKlgm8yi5fyfsOXYmI1CnWFG+HF0kXZ1Csd+s4ouzPq/FPQ/nYuVFYuoPzOxLPl2mGUQi7/m5tyQnj/s4fH/kdivKEIclhJrbB04TDjuEGzduyA7WDWiDAx7uSL4AwafVbOz8Vc4qw0FEBrnnYjKwHUEJrTzsiSc4rp3XXSCWrbUEiUyOY/QF//tK6ZBWmhkuIVAYyI=";
             _RSACryptoServiceProvider.ImportCspBlob(publicRSAKey.FromBase64String());
             _RSACryptoServiceProvider.ImportCspBlob(privateRSAKey.FromBase64String());
-            encryptCount = _RSACryptoServiceProvider.KeySize / 8 - 11;
+            decryptCount = _RSACryptoServiceProvider.KeySize / 8;
+            encryptCount = decryptCount - 11;
         }
 
         private static Aes _Aes;
@@ -45,6 +46,10 @@ namespace Xin
         /// RSA非对称加密单次加密字符串长度
         /// </summary>
         private static int encryptCount;
+        /// <summary>
+        /// RSA非对称加密单次解密字符串长度
+        /// </summary>
+        private static int decryptCount;
 
         #region SymmetricalEncryption 对称加密
         #region Encrypt
@@ -350,7 +355,7 @@ namespace Xin
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
                 RSA.ImportCspBlob(keyBlob);
-                if (inputBuffer.Length <= encryptCount)
+                if (inputBuffer.Length <= decryptCount)
                 {
                     return RSA.Decrypt(inputBuffer, false);
                 }
@@ -359,8 +364,8 @@ namespace Xin
                     List<byte> list = new List<byte>();
                     while (inputBuffer.Any())
                     {
-                        list.AddRange(RSA.Decrypt(inputBuffer.Take(encryptCount).ToArray(), false));
-                        inputBuffer = inputBuffer.Skip(encryptCount).ToArray();
+                        list.AddRange(RSA.Decrypt(inputBuffer.Take(decryptCount).ToArray(), false));
+                        inputBuffer = inputBuffer.Skip(decryptCount).ToArray();
                     }
                     return list.ToArray();
                 }
@@ -386,7 +391,7 @@ namespace Xin
         /// <returns>解密后的字节数组</returns>
         public static byte[] AsymmetricDecrypt(byte[] inputBuffer)
         {
-            if (inputBuffer.Length <= encryptCount)
+            if (inputBuffer.Length <= decryptCount)
             {
                 return _RSACryptoServiceProvider.Decrypt(inputBuffer, false);
             }
@@ -395,8 +400,8 @@ namespace Xin
                 List<byte> list = new List<byte>();
                 while (inputBuffer.Any())
                 {
-                    list.AddRange(_RSACryptoServiceProvider.Decrypt(inputBuffer.Take(encryptCount).ToArray(), false));
-                    inputBuffer = inputBuffer.Skip(encryptCount).ToArray();
+                    list.AddRange(_RSACryptoServiceProvider.Decrypt(inputBuffer.Take(decryptCount).ToArray(), false));
+                    inputBuffer = inputBuffer.Skip(decryptCount).ToArray();
                 }
                 return list.ToArray();
             }
@@ -410,8 +415,8 @@ namespace Xin
         /// <returns>解密后的字符串（UTF8）</returns>
         public static string AsymmetricDecrypt(string inString, byte[] keyBlob)
         {
-            byte[] inputBuffer = inString.FromUTF8String();
-            return AsymmetricDecrypt(inputBuffer, keyBlob).ToBase64String();
+            byte[] inputBuffer = inString.FromBase64String();
+            return AsymmetricDecrypt(inputBuffer, keyBlob).ToUTF8String();
         }
 
         /// <summary>
@@ -433,8 +438,8 @@ namespace Xin
         /// <returns>解密后的字符串（UTF8）</returns>
         public static string AsymmetricDecrypt(string inString)
         {
-            byte[] inputBuffer = inString.FromUTF8String();
-            return AsymmetricDecrypt(inputBuffer).ToBase64String();
+            byte[] inputBuffer = inString.FromBase64String();
+            return AsymmetricDecrypt(inputBuffer).ToUTF8String();
         }
         #endregion
         #endregion
