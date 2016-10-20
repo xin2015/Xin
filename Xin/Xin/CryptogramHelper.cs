@@ -41,6 +41,9 @@ namespace Xin
         /// RSA算法（非对称）解密私钥
         /// </summary>
         private static string privateRSAKey;
+        /// <summary>
+        /// RSA非对称加密单次加密字符串长度
+        /// </summary>
         private static int encryptCount;
 
         #region SymmetricalEncryption 对称加密
@@ -73,7 +76,7 @@ namespace Xin
         /// 使用Aes进行对称加密，密钥与初始化向量关联
         /// </summary>
         /// <param name="inputBuffer">待加密的字节数组</param>
-        /// <param name="key">Aes算法的密钥字符串</param>
+        /// <param name="key">Aes算法的密钥字符串（UTF8）</param>
         /// <returns>加密后的字节数组</returns>
         public static byte[] Encrypt(byte[] inputBuffer, string key)
         {
@@ -94,10 +97,10 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称加密
         /// </summary>
-        /// <param name="inString">待加密的字符串</param>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
         /// <param name="tdesKey">Aes算法的密钥</param>
         /// <param name="tdesIV">Aes算法的初始化向量</param>
-        /// <returns>加密后的字符串</returns>
+        /// <returns>加密后的字符串（Base64）</returns>
         public static string Encrypt(string inString, byte[] tdesKey, byte[] tdesIV)
         {
             byte[] inputBuffer = Encoding.UTF8.GetBytes(inString);
@@ -107,9 +110,9 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称加密，密钥与初始化向量关联
         /// </summary>
-        /// <param name="inString">待加密的字符串</param>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
         /// <param name="tdesKey">Aes算法的密钥字节数组</param>
-        /// <returns>加密后的字符串</returns>
+        /// <returns>加密后的字符串（Base64）</returns>
         public static string Encrypt(string inString, byte[] tdesKey)
         {
             byte[] tdesIV = tdesKey.Take(16).ToArray();
@@ -119,9 +122,9 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称加密，密钥与初始化向量关联
         /// </summary>
-        /// <param name="inString">待加密的字符串</param>
-        /// <param name="key">Aes算法的密钥字符串</param>
-        /// <returns>加密后的字符串</returns>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
+        /// <param name="key">Aes算法的密钥字符串（UTF8）</param>
+        /// <returns>加密后的字符串（Base64）</returns>
         public static string Encrypt(string inString, string key)
         {
             byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(key));
@@ -131,8 +134,8 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称加密，密钥和初始化向量为默认值
         /// </summary>
-        /// <param name="inString">待加密的字符串</param>
-        /// <returns>加密后的字符串</returns>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
+        /// <returns>加密后的字符串（Base64）</returns>
         public static string Encrypt(string inString)
         {
             byte[] inputBuffer = inString.FromUTF8String();
@@ -168,7 +171,7 @@ namespace Xin
         /// 使用Aes进行对称解密，密钥与初始化向量关联
         /// </summary>
         /// <param name="inputBuffer">待解密的字节数组</param>
-        /// <param name="key">Aes算法的密钥字符串</param>
+        /// <param name="key">Aes算法的密钥字符串（UTF8）</param>
         /// <returns>解密后的字节数组</returns>
         public static byte[] Decrypt(byte[] inputBuffer, string key)
         {
@@ -189,10 +192,10 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称解密
         /// </summary>
-        /// <param name="inString">待解密的字符串</param>
+        /// <param name="inString">待解密的字符串（Base64）</param>
         /// <param name="tdesKey">Aes算法的密钥</param>
         /// <param name="tdesIV">Aes算法的初始化向量</param>
-        /// <returns>解密后的字符串</returns>
+        /// <returns>解密后的字符串（UTF8）</returns>
         public static string Decrypt(string inString, byte[] tdesKey, byte[] tdesIV)
         {
             byte[] inputBuffer = inString.FromBase64String();
@@ -202,9 +205,9 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称解密，密钥与初始化向量关联
         /// </summary>
-        /// <param name="inString">待解密的字符串</param>
+        /// <param name="inString">待解密的字符串（Base64）</param>
         /// <param name="tdesKey">Aes算法的密钥字节数组</param>
-        /// <returns>解密后的字符串</returns>
+        /// <returns>解密后的字符串（UTF8）</returns>
         public static string Decrypt(string inString, byte[] tdesKey)
         {
             byte[] tdesIV = tdesKey.Take(16).ToArray();
@@ -214,9 +217,9 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称解密，密钥与初始化向量关联
         /// </summary>
-        /// <param name="inString">待解密的字符串</param>
-        /// <param name="key">Aes算法的密钥字符串</param>
-        /// <returns>解密后的字符串</returns>
+        /// <param name="inString">待解密的字符串（Base64）</param>
+        /// <param name="key">Aes算法的密钥字符串（UTF8）</param>
+        /// <returns>解密后的字符串（UTF8）</returns>
         public static string Decrypt(string inString, string key)
         {
             byte[] tdesKey = _SHA256.ComputeHash(Encoding.UTF8.GetBytes(key));
@@ -226,8 +229,8 @@ namespace Xin
         /// <summary>
         /// 使用Aes进行对称解密，密钥和初始化向量为默认值
         /// </summary>
-        /// <param name="inString">待解密的字符串</param>
-        /// <returns>解密后的字符串</returns>
+        /// <param name="inString">待解密的字符串（Base64）</param>
+        /// <returns>解密后的字符串（UTF8）</returns>
         public static string Decrypt(string inString)
         {
             byte[] inputBuffer = inString.FromBase64String();
@@ -236,12 +239,18 @@ namespace Xin
         #endregion
         #endregion
         #region AsymmetricEncryption 非对称加密
+        #region Encrypt
+        /// <summary>
+        /// 使用RSA进行非对称加密
+        /// </summary>
+        /// <param name="inputBuffer">待加密的字节数组</param>
+        /// <param name="keyBlob">RSA公钥Blob字节数组</param>
+        /// <returns>加密后的字节数组</returns>
         public static byte[] AsymmetricEncrypt(byte[] inputBuffer, byte[] keyBlob)
         {
             using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
             {
                 RSA.ImportCspBlob(keyBlob);
-                int encryptCount = RSA.KeySize / 8 - 11;
                 if (inputBuffer.Length <= encryptCount)
                 {
                     return RSA.Encrypt(inputBuffer, false);
@@ -259,6 +268,23 @@ namespace Xin
             }
         }
 
+        /// <summary>
+        /// 使用RSA进行非对称加密
+        /// </summary>
+        /// <param name="inputBuffer">待加密的字节数组</param>
+        /// <param name="keyBlobString">RSA公钥Blob字符串（Base64）</param>
+        /// <returns>加密后的字节数组</returns>
+        public static byte[] AsymmetricEncrypt(byte[] inputBuffer, string keyBlobString)
+        {
+            byte[] keyBlob = keyBlobString.FromBase64String();
+            return AsymmetricEncrypt(inputBuffer, keyBlob);
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称加密，使用默认公钥
+        /// </summary>
+        /// <param name="inputBuffer">待加密的字节数组</param>
+        /// <returns>加密后的字节数组</returns>
         public static byte[] AsymmetricEncrypt(byte[] inputBuffer)
         {
             if (inputBuffer.Length <= encryptCount)
@@ -277,23 +303,146 @@ namespace Xin
             }
         }
 
+        /// <summary>
+        /// 使用RSA进行非对称加密
+        /// </summary>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
+        /// <param name="keyBlob">RSA公钥Blob字节数组</param>
+        /// <returns>加密后的字符串（Base64）</returns>
         public static string AsymmetricEncrypt(string inString, byte[] keyBlob)
         {
             byte[] inputBuffer = inString.FromUTF8String();
             return AsymmetricEncrypt(inputBuffer, keyBlob).ToBase64String();
         }
 
+        /// <summary>
+        /// 使用RSA进行非对称加密
+        /// </summary>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
+        /// <param name="keyBlobString">RSA公钥Blob字符串（Base64）</param>
+        /// <returns>加密后的字符串（Base64）</returns>
+        public static string AsymmetricEncrypt(string inString, string keyBlobString)
+        {
+            byte[] keyBlob = keyBlobString.FromBase64String();
+            return AsymmetricEncrypt(inString, keyBlob);
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称加密，使用默认公钥
+        /// </summary>
+        /// <param name="inString">待加密的字符串（UTF8）</param>
+        /// <returns>加密后的字符串（Base64）</returns>
         public static string AsymmetricEncrypt(string inString)
         {
             byte[] inputBuffer = inString.FromUTF8String();
             return AsymmetricEncrypt(inputBuffer).ToBase64String();
         }
         #endregion
+        #region Decrypt
+        /// <summary>
+        /// 使用RSA进行非对称解密
+        /// </summary>
+        /// <param name="inputBuffer">待解密的字节数组</param>
+        /// <param name="keyBlob">RSA私钥Blob字节数组</param>
+        /// <returns>解密后的字节数组</returns>
+        public static byte[] AsymmetricDecrypt(byte[] inputBuffer, byte[] keyBlob)
+        {
+            using (RSACryptoServiceProvider RSA = new RSACryptoServiceProvider())
+            {
+                RSA.ImportCspBlob(keyBlob);
+                if (inputBuffer.Length <= encryptCount)
+                {
+                    return RSA.Decrypt(inputBuffer, false);
+                }
+                else
+                {
+                    List<byte> list = new List<byte>();
+                    while (inputBuffer.Any())
+                    {
+                        list.AddRange(RSA.Decrypt(inputBuffer.Take(encryptCount).ToArray(), false));
+                        inputBuffer = inputBuffer.Skip(encryptCount).ToArray();
+                    }
+                    return list.ToArray();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称解密
+        /// </summary>
+        /// <param name="inputBuffer">待解密的字节数组</param>
+        /// <param name="keyBlobString">RSA私钥Blob字符串（Base64）</param>
+        /// <returns>解密后的字节数组</returns>
+        public static byte[] AsymmetricDecrypt(byte[] inputBuffer, string keyBlobString)
+        {
+            byte[] keyBlob = keyBlobString.FromBase64String();
+            return AsymmetricDecrypt(inputBuffer, keyBlob);
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称解密，使用默认私钥
+        /// </summary>
+        /// <param name="inputBuffer">待解密的字节数组</param>
+        /// <returns>解密后的字节数组</returns>
+        public static byte[] AsymmetricDecrypt(byte[] inputBuffer)
+        {
+            if (inputBuffer.Length <= encryptCount)
+            {
+                return _RSACryptoServiceProvider.Decrypt(inputBuffer, false);
+            }
+            else
+            {
+                List<byte> list = new List<byte>();
+                while (inputBuffer.Any())
+                {
+                    list.AddRange(_RSACryptoServiceProvider.Decrypt(inputBuffer.Take(encryptCount).ToArray(), false));
+                    inputBuffer = inputBuffer.Skip(encryptCount).ToArray();
+                }
+                return list.ToArray();
+            }
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称解密
+        /// </summary>
+        /// <param name="inString">待解密的字符串（Base64）</param>
+        /// <param name="keyBlob">RSA私钥Blob字节数组</param>
+        /// <returns>解密后的字符串（UTF8）</returns>
+        public static string AsymmetricDecrypt(string inString, byte[] keyBlob)
+        {
+            byte[] inputBuffer = inString.FromUTF8String();
+            return AsymmetricDecrypt(inputBuffer, keyBlob).ToBase64String();
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称解密
+        /// </summary>
+        /// <param name="inString">待解密的字符串（Base64）</param>
+        /// <param name="keyBlobString">RSA私钥Blob字符串（Base64）</param>
+        /// <returns>解密后的字符串（UTF8）</returns>
+        public static string AsymmetricDecrypt(string inString, string keyBlobString)
+        {
+            byte[] keyBlob = keyBlobString.FromBase64String();
+            return AsymmetricDecrypt(inString, keyBlob);
+        }
+
+        /// <summary>
+        /// 使用RSA进行非对称解密，使用默认私钥
+        /// </summary>
+        /// <param name="inString">待解密的字符串（Base64）</param>
+        /// <returns>解密后的字符串（UTF8）</returns>
+        public static string AsymmetricDecrypt(string inString)
+        {
+            byte[] inputBuffer = inString.FromUTF8String();
+            return AsymmetricDecrypt(inputBuffer).ToBase64String();
+        }
+        #endregion
+        #endregion
         #region 哈希加密
         /// <summary>
         /// 使用SHA256获取哈希字符串
         /// </summary>
-        /// <param name="inString">源字符串</param>
+        /// <param name="inString">源字符串（UTF8）</param>
         /// <returns>哈希字符串</returns>
         public static string HashString(string inString)
         {

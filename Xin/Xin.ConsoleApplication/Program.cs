@@ -15,8 +15,6 @@ namespace Xin.ConsoleApplication
     {
         static void Main(string[] args)
         {
-            string a = "qwertyuiopasdfghjkl;zxcvbnm,1234567890-wertyuiopasdfghjkl;zxcvbnm,.1234567890-=wertyuiop[]\asdfghjkl;zxcvbnm,fsdfghjkl09876543wertyuioplkjhgfdsxcvbnm,.0987654wertyuioplkjhgfdsaxcvbnm,.";
-            byte[] b = CryptogramHelper.AsymmetricEncrypt(a.FromUTF8String());
             string url = "http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201608/t20160809_1386477.html";
             DataTable dt = new DataTable();
             dt.Columns.Add("Code", typeof(int));
