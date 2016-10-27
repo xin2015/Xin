@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -17,11 +18,15 @@ namespace Xin.WindowsFormsApplication
         private ILog logger;
         private DateTime beginTime;
         private DateTime endTime;
+        private SqlHelper source;
+        private SqlHelper target;
 
         public SyncForm()
         {
             InitializeComponent();
             logger = LogManager.GetLogger<SyncForm>();
+            source = new SqlHelper(ConfigurationManager.ConnectionStrings["SourceConnection"].ConnectionString);
+            target = new SqlHelper(ConfigurationManager.ConnectionStrings["TargetConnection"].ConnectionString);
         }
 
         private bool GetDateTime()
@@ -82,6 +87,11 @@ namespace Xin.WindowsFormsApplication
                 logger.Error("同步气象监测日均数据失败！", ex);
             }
             textBox3.Text = result;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
