@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin", "Xin\Xin.csproj", "{3DAB6192-9FE0-4AB1-B03F-4F05FA6AD0E5}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.WindowsFormsApplication", "Xin.WindowsFormsApplication\Xin.WindowsFormsApplication.csproj", "{49634E0D-C007-425A-800D-83F07AD8B1CA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.Web", "Xin.Web\Xin.Web.csproj", "{394BFCE7-AD00-49C9-BB73-D00D5291B49B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xin.EF", "Xin.EF\Xin.EF.csproj", "{5367ACA4-44C3-487F-AE3C-1044D0D2B10F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{394BFCE7-AD00-49C9-BB73-D00D5291B49B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{394BFCE7-AD00-49C9-BB73-D00D5291B49B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{394BFCE7-AD00-49C9-BB73-D00D5291B49B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5367ACA4-44C3-487F-AE3C-1044D0D2B10F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5367ACA4-44C3-487F-AE3C-1044D0D2B10F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5367ACA4-44C3-487F-AE3C-1044D0D2B10F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5367ACA4-44C3-487F-AE3C-1044D0D2B10F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
