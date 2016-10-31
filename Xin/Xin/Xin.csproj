@@ -90,6 +90,7 @@
     <Compile Include="Entity\IEntity.cs" />
     <Compile Include="Entity\IRepository.cs" />
     <Compile Include="Entity\ITransientDependency.cs" />
+    <Compile Include="Entity\RepositoryBase.cs" />
     <Compile Include="FastReflection\ConstructorInvoker.cs" />
     <Compile Include="FastReflection\ConstructorInvokerCache.cs" />
     <Compile Include="FastReflection\ConstructorInvokerFactory.cs" />
