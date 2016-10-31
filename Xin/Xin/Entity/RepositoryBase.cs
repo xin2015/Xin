@@ -8,9 +8,6 @@ namespace Xin.Entity
 {
     public class RepositoryBase<TEntity, TPrimaryKey> : IRepository<TEntity, TPrimaryKey>, IRepository, ITransientDependency where TEntity : class, IEntity<TPrimaryKey>
     {
-        protected RepositoryBase();
-
-
         public int Count()
         {
             throw new NotImplementedException();
