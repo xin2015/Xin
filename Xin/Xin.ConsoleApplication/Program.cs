@@ -1,4 +1,5 @@
-﻿using Ivony.Html;
+﻿using DotNet4.Utilities;
+using Ivony.Html;
 using Ivony.Html.Parser;
 using System;
 using System.Collections.Generic;
@@ -15,22 +16,40 @@ namespace Xin.ConsoleApplication
     {
         static void Main(string[] args)
         {
-            string url = "http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201608/t20160809_1386477.html";
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Code", typeof(int));
-            dt.Columns.Add("Name", typeof(string));
-            dt.TableName = "Division";
-            JumonyParser jp = new JumonyParser();
-            IHtmlDocument html = jp.LoadDocument(url, Encoding.UTF8);
-            List<IHtmlElement> list = html.Find(".MsoNormal").ToList();
-            foreach (IHtmlElement item in list)
+            string url = "http://localhost:44710/Home/Index?UserAccount=admin&Password=abc@123";
+            HttpHelper hh = new HttpHelper();
+            HttpItem hi = new HttpItem()
             {
-                DataRow dr = dt.NewRow();
-                dr["Code"] = int.Parse(item.Elements().First().InnerText().Trim());
-                dr["Name"] = item.Elements().Last().InnerText().Trim();
-                dt.Rows.Add(dr);
-            }
-            SqlHelper.Default.Insert(dt);
+                URL = url,
+                Method = "Post",
+                Postdata = "UserAccount=admin&Password=abc@123"
+            };
+            HttpResult hr = hh.GetHtml(hi);
+            hi = new HttpItem()
+            {
+                URL = string.Format("http://localhost:44710/DataAudit/SyncCityData?syncTime={0}", DateTime.Today.AddDays(-1)),
+                Method = "Get",
+                Cookie = hr.Cookie
+            };
+            hr = hh.GetHtml(hi);
+
+
+            //string url = "http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201608/t20160809_1386477.html";
+            //DataTable dt = new DataTable();
+            //dt.Columns.Add("Code", typeof(int));
+            //dt.Columns.Add("Name", typeof(string));
+            //dt.TableName = "Division";
+            //JumonyParser jp = new JumonyParser();
+            //IHtmlDocument html = jp.LoadDocument(url, Encoding.UTF8);
+            //List<IHtmlElement> list = html.Find(".MsoNormal").ToList();
+            //foreach (IHtmlElement item in list)
+            //{
+            //    DataRow dr = dt.NewRow();
+            //    dr["Code"] = int.Parse(item.Elements().First().InnerText().Trim());
+            //    dr["Name"] = item.Elements().Last().InnerText().Trim();
+            //    dt.Rows.Add(dr);
+            //}
+            //SqlHelper.Default.Insert(dt);
         }
     }
 }
