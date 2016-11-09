@@ -9,6 +9,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Xin.Extensions;
 
 namespace Xin.ConsoleApplication
 {
@@ -16,24 +17,6 @@ namespace Xin.ConsoleApplication
     {
         static void Main(string[] args)
         {
-            string url = "http://localhost:44710/Home/Index?UserAccount=admin&Password=abc@123";
-            HttpHelper hh = new HttpHelper();
-            HttpItem hi = new HttpItem()
-            {
-                URL = url,
-                Method = "Post",
-                Postdata = "UserAccount=admin&Password=abc@123"
-            };
-            HttpResult hr = hh.GetHtml(hi);
-            hi = new HttpItem()
-            {
-                URL = string.Format("http://localhost:44710/DataAudit/SyncCityData?syncTime={0}", DateTime.Today.AddDays(-1)),
-                Method = "Get",
-                Cookie = hr.Cookie
-            };
-            hr = hh.GetHtml(hi);
-
-
             //string url = "http://www.stats.gov.cn/tjsj/tjbz/xzqhdm/201608/t20160809_1386477.html";
             //DataTable dt = new DataTable();
             //dt.Columns.Add("Code", typeof(int));
