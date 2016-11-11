@@ -91,6 +91,7 @@
     <Compile Include="Entity\IRepository.cs" />
     <Compile Include="Entity\ITransientDependency.cs" />
     <Compile Include="Entity\RepositoryBase.cs" />
+    <Compile Include="Expressions\PropertyAccessor.cs" />
     <Compile Include="Extensions\DecimalExtension.cs" />
     <Compile Include="FastReflection\ConstructorInvoker.cs" />
     <Compile Include="FastReflection\ConstructorInvokerCache.cs" />
