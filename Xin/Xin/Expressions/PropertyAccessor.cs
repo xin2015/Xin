@@ -87,7 +87,7 @@ namespace Xin.Expressions
         {
             if (Property.CanRead)
             {
-                ParameterExpression instanceParam = Expression.Parameter(typeof(object));
+                ParameterExpression instanceParam = Expression.Parameter(typeof(object), "instance");
                 UnaryExpression instanceConvert = Property.GetMethod.IsStatic ? null : Expression.Convert(instanceParam, Property.ReflectedType);
                 MethodCallExpression call = Expression.Call(instanceConvert, Property.GetMethod);
                 getter = Expression.Lambda<Func<object, object>>(call, instanceParam).Compile();
@@ -98,8 +98,8 @@ namespace Xin.Expressions
         {
             if (Property.CanWrite)
             {
-                ParameterExpression instanceParam = Expression.Parameter(typeof(object));
-                ParameterExpression valueParam = Expression.Parameter(typeof(object));
+                ParameterExpression instanceParam = Expression.Parameter(typeof(object), "instance");
+                ParameterExpression valueParam = Expression.Parameter(typeof(object), "value");
                 UnaryExpression instanceConvert = Property.SetMethod.IsStatic ? null : Expression.Convert(instanceParam, Property.ReflectedType);
                 UnaryExpression valueConvert = Expression.Convert(valueParam, Property.PropertyType);
                 MethodCallExpression call = Expression.Call(instanceConvert, Property.SetMethod, valueConvert);
