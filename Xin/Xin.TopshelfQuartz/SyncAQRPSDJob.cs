@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xin.AQS;
+using Xin.Extensions;
 
 namespace Xin.TopshelfQuartz
 {

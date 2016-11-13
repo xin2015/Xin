@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Xin
+namespace Xin.Extensions
 {
     /// <summary>
     /// 字符串扩展类
@@ -22,11 +20,21 @@ namespace Xin
             return source.Substring(startIndex, endIndex - startIndex);
         }
 
+        /// <summary>
+        /// 将Base64格式的字符串转换为字节数组
+        /// </summary>
+        /// <param name="text">字符串</param>
+        /// <returns></returns>
         public static byte[] FromBase64String(this string text)
         {
             return Convert.FromBase64String(text);
         }
 
+        /// <summary>
+        /// 将UTF8格式的字符串转换为字节数组
+        /// </summary>
+        /// <param name="text">字符串</param>
+        /// <returns></returns>
         public static byte[] FromUTF8String(this string text)
         {
             return Encoding.UTF8.GetBytes(text);

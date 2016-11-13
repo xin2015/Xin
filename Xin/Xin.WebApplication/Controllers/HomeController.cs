@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
-using Xin.AQS.AQE;
+using Widgets.AQE;
 using Xin.Tabulation;
 
 namespace Xin.WebApplication.Controllers
