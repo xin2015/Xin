@@ -1,5 +1,5 @@
 ﻿using System;
-using Widgets.AQE;
+using Modules.AQE;
 
 namespace Xin.AQS
 {

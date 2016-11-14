@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
-using Widgets.FastReflection;
+using Modules.FastReflection;
 
 namespace Xin.Extensions
 {
