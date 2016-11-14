@@ -23,6 +23,8 @@ namespace Xin.WindowsFormsApplication
         private DateTime endTime;
         private SqlHelper source;
         private SqlHelper target;
+        private string NMCCityCode = ConfigurationManager.AppSettings["NMCCityCode"];
+        private string CityCode = ConfigurationManager.AppSettings["CityCode"];
 
         public SyncForm()
         {
@@ -38,7 +40,14 @@ namespace Xin.WindowsFormsApplication
             try
             {
                 beginTime = Convert.ToDateTime(textBox1.Text.Trim());
-                endTime = Convert.ToDateTime(textBox2.Text.Trim());
+                if (string.IsNullOrWhiteSpace(textBox2.Text.Trim()))
+                {
+                    endTime = beginTime;
+                }
+                else
+                {
+                    endTime = Convert.ToDateTime(textBox2.Text.Trim());
+                }
                 result = true;
             }
             catch (Exception e)
@@ -58,12 +67,12 @@ namespace Xin.WindowsFormsApplication
                 {
                     using (MeteorologyDataClient client = new MeteorologyDataClient())
                     {
-                        List<Weather_D_SpiDatum> data = client.GetDaySpiData(new string[] { "101280409" }, beginTime, endTime).ToList();
+                        List<Weather_D_SpiDatum> data = client.GetDaySpiData(new string[] { NMCCityCode }, beginTime, endTime).ToList();
                         List<NMCMeteorologyMonitorData> list = new List<NMCMeteorologyMonitorData>();
                         data.ForEach(o =>
                         {
                             NMCMeteorologyMonitorData item = new NMCMeteorologyMonitorData();
-                            item.CityCode = "441400";
+                            item.CityCode = CityCode;
                             item.TimePoint = o.TimePoint.Value;
                             item.CreateTime = DateTime.Now;
                             item.WindDirection = o.WindDirection;
@@ -312,6 +321,34 @@ namespace Xin.WindowsFormsApplication
             {
                 result = string.Format("同步国控点小时质控数据失败！{0}", DateTime.Now);
                 logger.Fatal("同步国控点小时质控数据失败！", ex);
+            }
+            textBox3.Text = result;
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string result;
+            try
+            {
+                if (GetDateTime())
+                {
+                    using (MeteorologyDataClient client = new MeteorologyDataClient())
+                    {
+                        List<City_WeatherForecastInfo> list = client.GetDayForecastData(new string[] { NMCCityCode }, beginTime, endTime).ToList();
+                        list.ForEach(o => o.CityCode = CityCode);
+                        SqlHelper.Default.Insert(list.GetDataTable("City_WeatherForecastInfo", "ExtensionData"));
+                        result = string.Format("同步城市气象7天预报数据成功！{0}", DateTime.Now);
+                    }
+                }
+                else
+                {
+                    result = "请输入正确的时间";
+                }
+            }
+            catch (Exception ex)
+            {
+                result = string.Format("同步城市气象7天预报数据失败！{0}", DateTime.Now);
+                logger.Error("同步城市气象7天预报数据失败！", ex);
             }
             textBox3.Text = result;
         }
