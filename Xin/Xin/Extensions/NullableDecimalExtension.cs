@@ -6,24 +6,21 @@ using System.Threading.Tasks;
 
 namespace Xin.Extensions
 {
-    public static class DecimalExtension
+    public static class NullableDecimalExtension
     {
         public static decimal? Round(this decimal? d)
         {
-            if (d.HasValue) return decimal.Round(d.Value);
-            else return null;
+            return d.HasValue ? decimal.Round(d.Value) : d;
         }
 
         public static decimal? Round(this decimal? d, int decimals)
         {
-            if (d.HasValue) return decimal.Round(d.Value, decimals);
-            else return null;
+            return d.HasValue ? decimal.Round(d.Value, decimals) : d;
         }
 
         public static decimal? Round(this decimal? d, int decimals, MidpointRounding mode)
         {
-            if (d.HasValue) return decimal.Round(d.Value, decimals, mode);
-            else return null;
+            return d.HasValue ? decimal.Round(d.Value, decimals, mode) : d;
         }
     }
 }
