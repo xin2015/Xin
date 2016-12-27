@@ -65,8 +65,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Modules.AQE, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Modules.AQE">
       <HintPath>..\..\..\..\Modules\Modules.AQE.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -216,6 +215,7 @@
     <Content Include="Scripts\echarts\dist\extension\dataTool.min.js" />
     <Content Include="Scripts\echarts\map\js\china-contour.js" />
     <Content Include="Scripts\echarts\map\js\china.js" />
+    <Content Include="Scripts\echarts\map\js\city\fuzhou.js" />
     <Content Include="Scripts\echarts\map\js\city\meizhou.js" />
     <Content Include="Scripts\echarts\map\js\city\yangjiang.js" />
     <Content Include="Scripts\echarts\map\js\city\yangjiang.min.js" />
@@ -499,6 +499,7 @@
     <Content Include="Service References\NAQRPDService\Xin.WebApplication.NAQRPDService.AQRPD.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
+    <Content Include="Views\ECharts\MapFZ.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
