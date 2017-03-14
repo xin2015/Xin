@@ -97,6 +97,7 @@
     <Compile Include="Extensions\EnumerableExtension.cs" />
     <Compile Include="HttpHelper.cs" />
     <Compile Include="IPHelper.cs" />
+    <Compile Include="MemoryCacheHelper.cs" />
     <Compile Include="NPOIHelper.cs" />
     <Compile Include="PagingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

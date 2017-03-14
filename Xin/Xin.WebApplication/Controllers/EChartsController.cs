@@ -44,6 +44,11 @@ namespace Xin.WebApplication.Controllers
             return View();
         }
 
+        public ActionResult MapNC()
+        {
+            return View();
+        }
+
         public ActionResult AQIReportMap()
         {
             return View();

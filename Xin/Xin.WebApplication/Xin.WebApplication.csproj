@@ -217,6 +217,7 @@
     <Content Include="Scripts\echarts\map\js\china.js" />
     <Content Include="Scripts\echarts\map\js\city\fuzhou.js" />
     <Content Include="Scripts\echarts\map\js\city\meizhou.js" />
+    <Content Include="Scripts\echarts\map\js\city\nanchang.js" />
     <Content Include="Scripts\echarts\map\js\city\yangjiang.js" />
     <Content Include="Scripts\echarts\map\js\city\yangjiang.min.js" />
     <Content Include="Scripts\echarts\map\js\province\anhui.js" />
@@ -449,7 +450,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -500,6 +503,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Content>
     <Content Include="Views\ECharts\MapFZ.cshtml" />
+    <Content Include="Views\ECharts\MapNC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

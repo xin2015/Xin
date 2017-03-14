@@ -23,7 +23,7 @@ namespace Xin.Extensions
         public static DataTable GetDataTable<T>(this IEnumerable<T> collection, string tableName, params string[] preclusiveColumnNames)
         {
             PropertyAccessorFactory factory = new PropertyAccessorFactory();
-            PropertyInfo[] properties = typeof(T).GetProperties().Where(o => preclusiveColumnNames.Contains(o.Name)).ToArray();
+            PropertyInfo[] properties = typeof(T).GetProperties().Where(o => !preclusiveColumnNames.Contains(o.Name)).ToArray();
             DataTable dt = new DataTable();
             dt.TableName = tableName;
             foreach (PropertyInfo property in properties)
