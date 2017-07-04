@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<span>
+    年：
+    <input type="text" class="Wdate" name="year" id="year" onfocus="WdatePicker({ dateFmt: 'yyyy', isShowClear: false, readOnly: true, maxDate: '#F{\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+    月：
+    <input type="text" class="Wdate" name="month" id="month" onfocus="WdatePicker({ dateFmt: 'yyyy-MM', isShowClear: false, readOnly: true, maxDate: '#F{\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+    日：
+    <input type="text" class="Wdate" name="day" id="day" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd', isShowClear: false, readOnly: true, maxDate: '#F{$\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+    时：
+    <input type="text" class="Wdate" name="hour" id="hour" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:00', isShowClear: false, readOnly: true, maxDate: '#F{\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+    分：
+    <input type="text" class="Wdate" name="minute" id="minute" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm', isShowClear: false, readOnly: true, maxDate: '#F{\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+    秒：
+    <input type="text" class="Wdate" name="second" id="second" onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss', isShowClear: false, readOnly: true, maxDate: '#F{\'%y-%M-%d {%H-1}:%m:%s\'}' })" placeholder="开始时间" value="@ViewData["beginTime"]">
+</span>
+@section scripts{
+    <script src="~/Scripts/My97DatePicker/WdatePicker.js"></script>
+}
