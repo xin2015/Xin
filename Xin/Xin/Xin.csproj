@@ -99,6 +99,7 @@
     <Compile Include="IPHelper.cs" />
     <Compile Include="MemoryCacheHelper.cs" />
     <Compile Include="NPOIHelper.cs" />
+    <Compile Include="NPOIWordHelper.cs" />
     <Compile Include="PagingHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmtpHelper.cs" />
